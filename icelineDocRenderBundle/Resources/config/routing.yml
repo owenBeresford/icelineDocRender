@@ -1,0 +1,3 @@
+iceline_ltdiceline_doc_render_homepage:
+    path:     /
+    defaults: { _controller: icelineLtdicelineDocRenderBundle:Default:index }
