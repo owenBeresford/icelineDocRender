@@ -2,3 +2,151 @@ services:
 #    iceline_ltdiceline_doc_render.example:
 #        class: icelineLtd\icelineDocRenderBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+
+programmaticChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk
+    arguments: [ "test", "<h1>hello world</h1>", "html", false ]
+
+commentChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\CommentChunk
+    arguments: [ "test", "<h1>hello world</h1>", "comment", false ]
+
+includeChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\IncludeChunk
+    arguments: [ "test", "<h1>hello world</h1>", "include", false ]
+
+nextResourceChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\NextResourceChunk
+    arguments: [ "test", "<h1>hello world</h1>", "nextresource", false ]
+
+pageMetaChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\PageMetaChunk
+    arguments: [ "test", "<h1>hello world</h1>", "pagemeta", false ]
+
+parseAsPHP5Chunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk
+    arguments: [ "test", "<h1>hello world</h1>", "php", false ]
+
+plainChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\PlainChunk
+    arguments: [ "test", "<h1>hello world</h1>", "plain", false ]
+
+wikiChunk:
+    class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\WikiChunk
+    arguments: [ "test", "<h1>hello world</h1>", "wiki", false ]
+
+icelineController:
+    class:  icelineLtd\icelineDocRenderBundle\Controller\IcelineController
+    arguments: []
+    calls: 
+        - [ setPages, [ "@pagesCollection" ] ]
+        - [ setPageRenderer, [ "@pageService" ] ]
+
+pagesCollection:
+    class: icelineLtd\icelineDocRenderBundle\Services\PageCollection
+    arguments: [ %pagesDirectory% ]
+
+templateTransform:
+    class: icelineLtd\icelineDocRenderer\Services\Transform\TemplateRenderer
+    arguments: []
+    calls:
+        - [ setStaticsFactory, [ "@staticValuesFactory" ]]
+        - [ setWorker, [ "@noTransformRenderer" ] ] 
+        - [ setWorker, [ "@formRenderer" ] ] 
+        - [ setWorker, [ "@jsRenderer" ] ] 
+        - [ setWorker, [ "@tableRenderer" ] ] 
+        - [ setWorker, [ "@tabListRenderer" ] ] 
+        - [ setWorker, [ "@wikiRenderer" ] ] 
+
+pageService:
+    class: icelineLtd\icelineDocRenderBundle\Services\PageService
+    arguments: [ ]
+    calls:
+        - [ setWorker, [ "@execTransform" ] ] 
+        - [ setWorker, [ "@frameTransform" ] ] 
+        - [ setWorker, [ "@templateTransform" ] ] 
+
+resourceHash:
+    class: icelineLtd\icelineDocRenderBundle\Services\ResourceHash
+    arguments: [ ]
+    calls:
+        - [setWorker, [ "@commentChunk" ]]
+        - [setWorker, [ "@includeChunk" ]]
+        - [setWorker, [ "@nextResourceChunk" ]]
+        - [setWorker, [ "@pageMetaChunk" ]]
+        - [setWorker, [ "@parseAsPHP5Chunk" ]]
+        - [setWorker, [ "@plainChunk" ]]
+        - [setWorker, [ "@wikiChunk" ]]
+        - [setWorker, [ "@programmaticChunk" ]]
+        - [setPageCollection, [ "@pagesCollection" ]]
+    
+execTransform:
+    class: icelineLtd\icelineDocRenderBundle\Services\Transform\ExecTransform
+    arguments: [ "GET"]
+    calls: 
+        - [setConfig, ["@config"] ]
+        - [setLogger, ["@logger"] ]
+        - [setSession, ["@session"] ]
+
+frameTransform:
+   class: icelineLtd\icelineDocRenderBundle\Services\Transform\FrameTransform
+        - [setPageCollection, ["@pagesCollection"] ]
+
+config:
+    class: icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig
+    arguments: [ %configFile% ]
+    calls: []
+
+staticValuesFactory:
+    class: icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory
+    arguments: [ %configFile% ]
+    calls: 
+        - [ setSession, ["@session"]]
+        - [ setPageCollection, ["@pagesCollection"]]
+
+noTransformRenderer:
+    class: icelineLtd\icelineDocRenderBundle\Services\NoTransformRenderer
+    arguments: [ ]
+    calls: 
+
+formRenderer:
+    class: icelineLtd\icelineDocRenderBundle\Services\NoTransformRenderer
+    arguments: [ ]
+    calls: 
+        - [setConfig, ["@config"] ]
+        - [setSession, ["@session"] ]
+        - [setHTMLise, ["@htmlise"] ]
+
+jsRenderer :
+    class: icelineLtd\icelineDocRenderBundle\Services\JSRenderer
+    arguments: [ ]
+    calls: 
+
+tableRenderer: 
+    class: icelineLtd\icelineDocRenderBundle\Services\TableRenderer
+    arguments: [ ]
+    calls: 
+        - [setConfig, ["@config"] ]
+        - [setHTMLise, ["@htmlise"] ]
+
+tabListRenderer:
+    class: icelineLtd\icelineDocRenderBundle\Services\TabListRenderer
+    arguments: [ ]
+    calls: 
+        - [setConfig, ["@config"] ]
+        - [ setWorker, [ "@templateTransform" ] ] 
+
+wikiRenderer :
+    class: icelineLtd\icelineDocRenderBundle\Services\WikiRenderer
+    arguments: [ "Text_Wiki" ]
+    calls: 
+        - [setConfig, ["@config"] ]
+        - [setConfig, ["@wiki"] ]
+
+htmlise:
+    class: icelineLtd\icelineDocRenderBundle\Services\HTMLise
+# the first param may become an array of values later 
+    arguments: [ [] ,[] ]
+    calls: 
+        - [setConfig, ["@config"] ]
+
