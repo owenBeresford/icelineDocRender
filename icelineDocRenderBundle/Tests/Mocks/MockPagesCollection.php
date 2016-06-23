@@ -1,0 +1,106 @@
+<?php
+
+namespace icelineLtd\icelineLtdDocRenderBundle\Tests\Mocks; 
+
+use icelineLtd\icelineLtdDocRenderBundle\PagesCollectionInterface;
+use icelineLtd\icelineLtdDocRenderBundle\Services\ResourceHash;
+use icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer;
+use icelineLtd\icelineLtdDocRenderBundle\Services\Render\JSRenderer;
+use icelineLtd\icelineLtdDocRenderBundle\Services\Render\NoTransformRenderer;
+use icelineLtd\icelineLtdDocRenderBundle\Tests\Fixture\ResourceMaker;
+
+/**
+ * 3min to write, faster than using a Mock library
+ * 
+ * @uses PagesCollectionInterface
+ * @package 
+ * @version $id$
+ * @author oab1 / Owen Beresford / owen@iceline.ltd.uk  
+ * @license AGPL {@link http://www.gnu.org/licenses/agpl-3.0.html}
+ */
+class MockPageCollection implements PagesCollectionInterface
+{
+	protected $pages;
+
+	/**
+	 * __construct
+	 * 
+	 * @param ConfigInterface $ci 
+	 * @return <object>
+	 */
+	public function __construct() {
+		$this->pages=[
+				'frame-1',
+				'page-1',
+				'makeFramePage001',
+				'makeFramePage002',
+				'other-page'
+		];
+		$this->maker=new ResourceMaker();
+	}
+
+	/**
+	 * toURL
+	 * 
+	 * @param mixed $name 
+	 * @return string
+	 */
+	public function toURL($name) {
+		return $name;
+	}
+
+	/**
+	 * toFile
+	 * 
+	 * @param mixed $name 
+	 * @return string
+	 */
+	public function toFile($name) {
+		return $name;
+	}
+	
+	/**
+	 * all
+	 * 
+	 * @return array of file names
+	 */
+	function all() {
+		return $this->pages;
+	}
+
+	/**
+	 * exists
+	 * 
+	 * @param string $name 
+	 * @return bool
+	 */
+	public function exists($name) {
+		return in_array($name, $this->pages);
+	}
+
+	/**
+	 * getResource
+	 * 
+	 * @param mixed $name 
+	 * @access public
+	 * @return <self>
+	 */
+	public function getResource($name=null) {
+		if(method_exists($this->maker, $name)) {
+			return $this->maker->$name();
+		}
+		return new ResourceHash();
+	}
+
+	public function getRenderer() {
+		// add attached classes
+		$t= new TemplateRenderer();
+		$t->setWorker(new JSRenderer());
+		$t->setWorker(new NoTransformRenderer());
+		return $t;
+	}
+		
+}
+# vi: ts=4
+# vim: ts=4 sw=4 fdm=marker syn=php
+
