@@ -32,6 +32,9 @@ class PHPArrayConfig implements ConfigInterface
 	 * @exception Exception
 	 */
 	public function load($file) {{{
+		if($file{0}!=='/' ) {
+			$file=__DIR__.'/'.$file;
+		}
 # don't flush current contents
 # if I use eval(), i will need to change the structure of the data in the config file.
 		if(!(file_exists($file) && is_readable($file))) {

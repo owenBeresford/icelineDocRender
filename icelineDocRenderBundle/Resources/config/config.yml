@@ -1,0 +1,3 @@
+parameters:
+    pagesDirectory: Resources/pages 
+    configFile: Resources/config/site_config.php

@@ -1,3 +1,7 @@
 iceline_ltdiceline_doc_render_homepage:
-    path:     /
-    defaults: { _controller: icelineLtdicelineDocRenderBundle:Default:index }
+    path:     /resource/{page}
+    defaults: { _controller: @icelineController:renderAction }
+    methods: ['GET'] 
+    requirements:
+       page: ^[a-z0-9-]{3,25}$
+
