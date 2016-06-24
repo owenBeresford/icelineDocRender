@@ -8,8 +8,8 @@ Objectives
 * Be able to use things like DI as its now possible 
 * 
 
-q) why do I have iceline in the name twice? it looks silly.
-a) the first renderer was called 'iceline', its the iceline file format document renderer.
-q) do you have something against DB?
-a) my current use case doesn't have concurrent edits, so a DBMS is unneeded.  NB, It wouldn't be much effort to map ResourceHash->setContentFromFile to a MongoDB document read 
-
+* (q) why do I have iceline in the name twice? it looks silly.
+*     (a) the first renderer was called 'iceline', its the iceline file format document renderer.
+* (q) do you have something against DB?
+*     (a) my current use case doesn't have concurrent edits, so a DBMS is unneeded.  NB, It wouldn't be much effort to map ResourceHash->setContentFromFile to a MongoDB document read 
+*     
