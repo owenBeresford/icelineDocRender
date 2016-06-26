@@ -1,9 +1,9 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Render;
+namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
- use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-  use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
+ use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+  use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * NoTransformRenderer 

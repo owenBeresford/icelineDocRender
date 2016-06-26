@@ -21,9 +21,9 @@
  * MA 02110-1301  USA
  * 
  */
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
 
 /**
  * ******** This class is a quick hack. **********

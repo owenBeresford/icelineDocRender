@@ -1,11 +1,12 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
- use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface; 
-  use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-  use icelineLtd\icelineLtdDocRenderBundle\PagesCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+ use icelineLtd\icelineDocRenderBundle\ConfigInterface; 
+  use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+  use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
 
 /**
  * StaticValuesFactory 
@@ -44,7 +45,7 @@ class StaticValuesFactory
 	 * @param SessionInterface $si 
 	 * @return <self>
 	 */
-	function setSession(SessionInterface $si) {
+	function setSession(SessionInterface  $si) {
 		$this->sess=$si;
 		return $this;
 	}
@@ -65,14 +66,14 @@ class StaticValuesFactory
 	 * 
 	 * @param ResourceInterface $in 
 	 * @return <self>
-	 * @assert $obj->get($in) == 'icelineLtd\icelineLtdDocRenderBundle\ResourceInterface'
+	 * @assert $obj->get($in) == 'icelineLtd\icelineDocRenderBundle\ResourceInterface'
 	 * Add more tests manually
 	 */
 	public function get(ResourceInterface $in) {
 		$out		= $this->pages->getResource('blank');
 			$e=[];
 		if($this->sess) {
-			$e		= $this->sess->get(['error-message']);
+			$e		= $this->sess->get('error-message');
 		}		
 		$meta=$in->getChunk(ChunkInterface::PAGE_META);
 		

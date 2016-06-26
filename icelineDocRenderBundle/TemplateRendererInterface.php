@@ -1,10 +1,10 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle;
+namespace icelineLtd\icelineDocRenderBundle;
 
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * TemplateRenderer 

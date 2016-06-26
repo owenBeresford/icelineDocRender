@@ -1,14 +1,14 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Render;
+namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
-use  icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
- use  icelineLtd\icelineLtdDocRenderBundle\ResourceInterface ;
- use  icelineLtd\icelineLtdDocRenderBundle\TemplateRendererInterface;
- use  icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
- use  icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
-  use  icelineLtd\icelineLtdDocRenderBundle\Services\Chunks\ProgrammaticChunk;
- use  icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
+use  icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use  icelineLtd\icelineDocRenderBundle\ResourceInterface ;
+use  icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
+use  icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use  icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
+use  icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use  icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * TabListRenderer 

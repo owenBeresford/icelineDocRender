@@ -1,11 +1,12 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
- use icelineLtd\icelineLtdDocRenderBundle\LogInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+ use icelineLtd\icelineDocRenderBundle\LogInterface;
+use Symfony\Bridge\Monolog\Logger;
 
 /**
  * PHPExecService 
@@ -48,7 +49,7 @@ class PHPExecService
 	 * @param LogInterface $l 
 	 * @return <this>
 	 */
-	function setLogger(LogInterface $l) {
+	function setLogger(Logger $l) {
 		$this->log=$l;
 		return $this;
 	}
@@ -75,7 +76,7 @@ class PHPExecService
 			$tt						= error_get_last();
 			if($tt) {
 # the following is necessary as some of the imported libraries are written to older PHP
-				$this->log->debug($tt['message']." ".basename($tt['file']).'#'.$tt['line'], Log::LOG_NOTICE);
+				$this->log->info($tt['message']." ".basename($tt['file']).'#'.$tt['line']);
 			}
 			if($GLOBALS['error']>0) {
 //				if(strpos( $tt['file'],'import' )===false) {
@@ -95,6 +96,7 @@ class PHPExecService
 		}
 		if(!is_callable($func)) {
 			$GLOBALS['error']		= 1;
+			$this->log->info( "Internal error: page '".$this->name."' crashed on compilation, please contact an administrator.");
 			throw new BadResourceException("Internal error: page '".$this->name."' crashed on compilation, please contact an administrator.");
 		}
 		return $func;

@@ -92,6 +92,7 @@ $site_settings							=array(
 	'site_language' 		=>'en-GB-oed',
 	'current_timezone'		=>'Europe/London',
 	'network_protocol'		=>'http',
+	'res_dir'				=>'icelineLtd/icelineDocRenderBundle/Resources/pages/',
 	'site_name'				=>'OwenBeresford\'s very wordy site',
 	'page_author'			=>'unlisted, but owenberesford.me.uk',
 	'page_charset'			=>'utf-8',

@@ -6,9 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use icelineLtd\icelineDocRenderBundle\PageCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
 use icelineLtd\icelineDocRenderBundle\PageServiceInterface;
-
 
 /**
  * IcelineController 
@@ -30,7 +29,7 @@ class IcelineController extends Controller
 	 * @param PageCollectionInterface $pci 
 	 * @return <self>
 	 */
-	function setPages(PageCollectionInterface $pci) {
+	function setPages(PagesCollectionInterface $pci) {
 		$this->page=$pci;
 		return $this; 
 	}
@@ -64,11 +63,13 @@ class IcelineController extends Controller
 	 * @access public
 	 * @return <self>
 	 */
-	public function renderAction() {
-		$req=Request::createFromGlobals();
-		$page=$req->get('resource');		
+	public function renderAction($page=null) {
+		if(!$page) { 
+			$req=Request::createFromGlobals();
+			$page=$req->get('resource');		
+		}
 
-		if(!$this->page->isvalid($page)) {
+		if(!$this->page->exists($page)) {
 			return $this->reject(404, "Unknown resource");
 		}
 		$page=$this->page->toFile($page);

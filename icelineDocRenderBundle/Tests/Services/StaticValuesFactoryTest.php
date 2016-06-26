@@ -1,10 +1,10 @@
 <?php
-namespace icelineLtd\icelineLtdDocRenderBundle\Tests\Services;
+namespace icelineLtd\icelineDocRenderBundle\Tests\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\Services\StaticValuesFactory;
-use icelineLtd\icelineLtdDocRenderBundle\Tests\Fixture\ResourceMaker;
-use icelineLtd\icelineLtdDocRenderBundle\Services\PHPArrayConfig ;
-use icelineLtd\icelineLtdDocRenderBundle\Tests\Mocks\MockPageCollection;
+use icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory;
+use icelineLtd\icelineDocRenderBundle\Tests\Fixture\ResourceMaker;
+use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig ;
+use icelineLtd\icelineDocRenderBundle\Tests\Mocks\MockPageCollection;
 
 $_SERVER['SERVER_ADDR']='127.0.0.1';
 
@@ -41,21 +41,21 @@ class StaticValuesFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Generated from @assert $obj->get($in) == 'icelineLtd\icelineLtdDocRenderBundle\ResourceInterface'.
+     * Generated from @assert $obj->get($in) == 'icelineLtd\icelineDocRenderBundle\ResourceInterface'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\StaticValuesFactory::get
+     * @covers icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory::get
      */
     public function testGet()
     {
 		$in=$this->maker->makeFramePage001();
         $this->assertEquals(
-            'icelineLtd\icelineLtdDocRenderBundle\Services\ResourceHash',
+            'icelineLtd\icelineDocRenderBundle\Services\ResourceHash',
             get_class($this->obj->get($in))
         );
     }
 
     /**
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\StaticValuesFactory::setSession
+     * @covers icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory::setSession
      * @todo   Implement testSetSession().
      */
     public function testSetSession()
@@ -66,7 +66,7 @@ class StaticValuesFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\StaticValuesFactory::setPageCollection
+     * @covers icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory::setPageCollection
      * @todo   Implement testSetPageCollection().
      */
     public function testSetPageCollection()

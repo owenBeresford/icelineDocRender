@@ -1,6 +1,6 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Exceptions;
+namespace icelineLtd\icelineDocRenderBundle\Exceptions;
 
 /**
  * BadResourceException 

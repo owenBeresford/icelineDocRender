@@ -1,12 +1,12 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Render;
+namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
-use icelineLtd\icelineLtdDocRenderBundle\SessionInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Services\HTMLise;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
- use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\Services\HTMLise;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+ use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
 
 
 /**
@@ -134,16 +134,16 @@ class FormRenderer implements ChunkTransformInterface
 	 * @return <self>
 	 */
 	function generateCSRF(array &$items) {
-		$tt				= $this->sess->get(array('forms', $name, 'csrf') );
+		$tt				= $this->sess->get("forms.$name.csrf.key" );
 		$key			= null;
 		if(	$tt ==null) { 
 	
 			$key		= $this->sess->cycle_id(false);
-			$this->sess->set(array('forms', $name, 'csrf', 'key'), $key);
-			$this->sess->set(array('forms', $name, 'csrf', 'form'), $chunk );
-			$this->sess->set(array('forms', $name, 'csrf', 'expire'), time() + intval($this->conf->get(array('site_settings', 'max_post_wait'))) );
+			$this->sess->set("forms.$name.csrf.key", $key);
+			$this->sess->set("forms.$name.csrf.form", $chunk );
+			$this->sess->set("forms.$name.csrf.expire", time() + intval($this->conf->get(array('site_settings', 'max_post_wait'))) );
 			# this is the chunk name.
-			$this->sess->set(array('forms', $name, 'csrf', 'form'), $name);
+			$this->sess->set("forms.$name.csrf.form", $name);
 		} else {
 			$key		= $tt['key'];
 		}
@@ -163,8 +163,8 @@ class FormRenderer implements ChunkTransformInterface
 	 */
 	function getPreviousPost() {
 		$post				=[];
-		if($this->sess && $this->sess->get(array('forms', $name, 'submission') )) {
-			$post			= $this->sess->get(array('forms', $name, 'submission'));
+		if($this->sess && $this->sess->get("forms.$name.submission" )) {
+			$post			= $this->sess->get("forms.$name.submission");
 		}
 		return $post;		
 	}

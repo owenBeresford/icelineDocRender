@@ -1,12 +1,12 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Render;
+namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
- use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-  use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
- use icelineLtd\icelineLtdDocRenderBundle\Exception\BadResourceException ;
-  use icelineLtd\icelineLtdDocRenderBundle\Services\HTMLise; 
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+ use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+  use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+ use icelineLtd\icelineDocRenderBundle\Exception\BadResourceException ;
+  use icelineLtd\icelineDocRenderBundle\Services\HTMLise; 
 
 /**
  * TableRenderer 

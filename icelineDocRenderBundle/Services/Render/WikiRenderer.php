@@ -1,11 +1,11 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Render;
+namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
- use icelineLtd\icelineLtdDocRenderBundle\WikiFactoryInterface;
- use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface; 
- use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+ use icelineLtd\icelineDocRenderBundle\WikiFactoryInterface;
+ use icelineLtd\icelineDocRenderBundle\ChunkInterface; 
+ use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * WikiRenderer 

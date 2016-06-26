@@ -1,15 +1,15 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Transform;
+namespace icelineLtd\icelineDocRenderBundle\Services\Transform;
 
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\TemplateRendererInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkRendererInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\NoImplException;
-use icelineLtd\icelineLtdDocRenderBundle\PagesCollectionInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkRendererInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
+use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 
 /**
  * TemplateRenderer 
@@ -49,7 +49,7 @@ class FrameTransform implements TemplateRendererInterface
 	 * @access public
 	 * @return ResourceInterface
 	 * @throws BadResourceException ~ if the frame isn't valid
-	 * @assert $obj->transform($in) == 'icelineLtd\icelineLtdDocRenderBundle\ResourceInterface'
+	 * @assert $obj->transform($in) == 'icelineLtd\icelineDocRenderBundle\ResourceInterface'
 	 * page without frame meta
 	 * page with invalid frame 
 	 */

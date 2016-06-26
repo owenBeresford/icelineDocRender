@@ -1,10 +1,10 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Tests\Fixture;
+namespace icelineLtd\icelineDocRenderBundle\Tests\Fixture;
 
-use icelineLtd\icelineLtdDocRenderBundle\Services\ResourceHash;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Chunks\ProgrammaticChunk;
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\Services\ResourceHash;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 
 /**
  * ResourceMaker 

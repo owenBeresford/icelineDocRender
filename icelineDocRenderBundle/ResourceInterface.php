@@ -1,6 +1,6 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle;
+namespace icelineLtd\icelineDocRenderBundle;
 
 /**
  * ResourceInterface 

@@ -1,10 +1,10 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadFilesystemException;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\NoImplException;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadFilesystemException;
+use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
 
 /**
  * ConfigInterface 
@@ -33,7 +33,7 @@ class PHPArrayConfig implements ConfigInterface
 	 */
 	public function load($file) {{{
 		if($file{0}!=='/' ) {
-			$file=__DIR__.'/'.$file;
+			$file=__DIR__.'/../'.$file;
 		}
 # don't flush current contents
 # if I use eval(), i will need to change the structure of the data in the config file.

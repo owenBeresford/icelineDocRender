@@ -1,9 +1,9 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services; 
+namespace icelineLtd\icelineDocRenderBundle\Services; 
 
-use icelineLtd\icelineLtdDocRenderBundle\PagesCollectionInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
 
 /**
  * PageCollection 
@@ -28,12 +28,13 @@ class PageCollection implements PagesCollectionInterface
 	 * @return <object>
 	 */
 	public function __construct(ConfigInterface $ci) {
+		$this->conf=$ci;
 		$this->pages=[];
 		$this->projectRoot=realpath(__DIR__.'/../../../').'/';
 		$list=glob( $this->projectRoot.$this->conf->get(['site_settings','res_dir']).'*.wiki');
 		foreach($list as $k=>$v) {
 		// IOIO I think I need more stuff here...
-			$this->pages[]=$v;
+			$this->pages[basename($v, ".wiki")]=$v;
 		}
 	}
 
@@ -95,7 +96,7 @@ class PageCollection implements PagesCollectionInterface
 	 * @return bool
 	 */
 	public function exists($name) {
-		return in_array($name, $this->pages);
+		return array_key_exists($name, $this->pages);
 	}
 		
 }

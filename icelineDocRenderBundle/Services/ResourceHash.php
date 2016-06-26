@@ -1,13 +1,13 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Chunks\ProgrammaticChunk;
-use icelineLtd\icelineLtdDocRenderBundle\PageCollectionInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\AddFileException;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\Exceptions\AddFileException;
 
 /**
  * ResourceHash
@@ -61,10 +61,10 @@ class ResourceHash implements ResourceInterface
 	/**
 	 * setPageCollection
 	 * 
-	 * @param PageCollectionInterface $pci 
+	 * @param PagesCollectionInterface $pci 
 	 * @return <self>
 	 */
-	function setPageCollection(PageCollectionInterface $pci) {
+	function setPageCollection(PagesCollectionInterface $pci) {
 		$this->pages=$pc;
 		return $this;		
 	}

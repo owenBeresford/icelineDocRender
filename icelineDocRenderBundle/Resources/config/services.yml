@@ -1,3 +1,6 @@
+parameters:
+    resource_path: nil 
+    site_config: "Resources/config/site_config.php"
 
 services:
     #    iceline_ltdiceline_doc_render.example:
@@ -44,7 +47,7 @@ services:
             - [ setPageRenderer, [ "@pageService" ] ]
 
     templateTransform:
-        class: icelineLtd\icelineDocRenderer\Services\Transform\TemplateRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer
         arguments: []
         calls:
             - [ setStaticsFactory, [ "@staticValuesFactory" ]]
@@ -59,9 +62,12 @@ services:
         class: icelineLtd\icelineDocRenderBundle\Services\PageService
         arguments: [ ]
         calls:
-            - [ setWorker, [ "@execTransform" ] ] 
-            - [ setWorker, [ "@frameTransform" ] ] 
-            - [ setWorker, [ "@templateTransform" ] ] 
+            - [ setDebug, [ false ]]
+            - [ setConfig, [ "@config" ]]
+            - [ setTransform, [ "@execTransform" ] ] 
+            - [ setTransform, [ "@frameTransform" ] ] 
+            - [ setTransform, [ "@templateTransform" ] ] 
+            - [ setResource, [ "@resourceHash"]]
 
     resourceHash:
         class: icelineLtd\icelineDocRenderBundle\Services\ResourceHash
@@ -93,12 +99,12 @@ services:
 
     config:
         class: icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig
-        arguments: [ "Resources/config/site_config.php" ]
+        arguments: [ %site_config% ]
         calls: []
 
     staticValuesFactory:
         class: icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory
-        arguments: [ "Resources/config/site_config.php" ]
+        arguments: [ "@config" ]
         calls: 
             - [ setSession, ["@session"]]
             - [ setPageCollection, ["@pagesCollection"]]
@@ -108,12 +114,12 @@ services:
         arguments: [ "@config" ]
 
     noTransformRenderer:
-        class: icelineLtd\icelineDocRenderBundle\Services\NoTransformRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\NoTransformRenderer
         arguments: [ ]
         calls: 
 
     formRenderer:
-        class: icelineLtd\icelineDocRenderBundle\Services\NoTransformRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\FormRenderer
         arguments: [ ]
         calls: 
             - [setConfig, ["@config"] ]
@@ -121,30 +127,37 @@ services:
             - [setHTMLise, ["@htmlise"] ]
 
     jsRenderer :
-        class: icelineLtd\icelineDocRenderBundle\Services\JSRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\JSRenderer
         arguments: [ ]
         calls: 
 
     tableRenderer: 
-        class: icelineLtd\icelineDocRenderBundle\Services\TableRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\TableRenderer
         arguments: [ ]
         calls: 
             - [setConfig, ["@config"] ]
             - [setHTMLise, ["@htmlise"] ]
 
     tabListRenderer:
-        class: icelineLtd\icelineDocRenderBundle\Services\TabListRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\TabListRenderer
         arguments: [ ]
         calls: 
             - [setConfig, ["@config"] ]
-            - [ setWorker, [ "@templateTransform" ] ] 
+            - [ setResourceHash, [ "@resourceHash" ] ] 
+            - [ setTemplateRenderer, ["@templateTransform"] ]
 
     wikiRenderer :
-        class: icelineLtd\icelineDocRenderBundle\Services\WikiRenderer
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\WikiRenderer
         arguments: [ "Text_Wiki" ]
         calls: 
             - [setConfig, ["@config"] ]
-            - [setConfig, ["@wiki"] ]
+            - [setWiki, ["@wikiFactory"] ]
+
+    wikiFactory:
+        class: icelineLtd\icelineDocRenderBundle\Services\WikiFactory
+        calls:
+            - [setConfig, ["@config"]  ]
+            - [setPageCollection, ["@pagesCollection"]]
 
     htmlise:
         class: icelineLtd\icelineDocRenderBundle\Services\HTMLise
@@ -153,3 +166,5 @@ services:
         calls: 
             - [setConfig, ["@config"] ]
 
+    wiki:
+        class: Text_Wiki

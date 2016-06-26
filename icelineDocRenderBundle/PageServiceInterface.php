@@ -1,11 +1,11 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle;
 
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 
 
 /**

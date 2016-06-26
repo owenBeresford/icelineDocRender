@@ -1,13 +1,14 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services;
+namespace icelineLtd\icelineDocRenderBundle\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
-use icelineLtd\icelineLtdDocRenderBundle\TemplateRendererInterface;
-# use icelineLtd\icelineLtdDocRenderBundle\PageServiceInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
+use icelineLtd\icelineDocRenderBundle\PageServiceInterface;
 
 
 /**
@@ -59,6 +60,17 @@ class PageService implements PageServiceInterface
 		$this->impl[]=$tri;
 		return $this;
 	}
+
+	/**
+	 * setSession
+	 * 
+	 * @param SessionInterface $s 
+	 * @return <self>
+	 */
+	function setSession(SessionInterface  $s) {
+		$this->sess=$s;
+		return $this;		
+	}
 	
 	/**
 	 * setResource
@@ -94,7 +106,7 @@ class PageService implements PageServiceInterface
 				return 500;
 			} else {
 				try {
-					$this->sess->append(['error-messages'], $bre->getMessage());
+					$this->sess->set('error-messages', array_merge($this->sess->get('error-messages', []), [$bre->getMessage()]));
 					$this->resrc->setContentFromFile($this->conf->get(['site_settings', 'error_template']));
 					for($i=0, $LENGTH=count($this->impl); $i<$LENGTH; $i++) {
 						$this->resrc=$this->impl[$i]->transform($this->resrc);

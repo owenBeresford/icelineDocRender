@@ -1,6 +1,6 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle;
+namespace icelineLtd\icelineDocRenderBundle;
 
 /**
  * PagesCollectionInterface 
@@ -9,7 +9,6 @@ namespace icelineLtd\icelineLtdDocRenderBundle;
  * @version $id$
  * @author oab1 / Owen Beresford / owen@iceline.ltd.uk  
  * @license AGPL {@link http://www.gnu.org/licenses/agpl-3.0.html}
- // }}}
  */
 interface PagesCollectionInterface
 {

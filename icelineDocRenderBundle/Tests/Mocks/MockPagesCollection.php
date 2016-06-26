@@ -1,13 +1,13 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Tests\Mocks; 
+namespace icelineLtd\icelineDocRenderBundle\Tests\Mocks; 
 
-use icelineLtd\icelineLtdDocRenderBundle\PagesCollectionInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Services\ResourceHash;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Render\JSRenderer;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Render\NoTransformRenderer;
-use icelineLtd\icelineLtdDocRenderBundle\Tests\Fixture\ResourceMaker;
+use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\Services\ResourceHash;
+use icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer;
+use icelineLtd\icelineDocRenderBundle\Services\Render\JSRenderer;
+use icelineLtd\icelineDocRenderBundle\Services\Render\NoTransformRenderer;
+use icelineLtd\icelineDocRenderBundle\Tests\Fixture\ResourceMaker;
 
 /**
  * 3min to write, faster than using a Mock library

@@ -1,9 +1,9 @@
 <?php
-namespace icelineLtd\icelineLtdDocRenderBundle\Tests\Services;
+namespace icelineLtd\icelineDocRenderBundle\Tests\Services;
 
-use icelineLtd\icelineLtdDocRenderBundle\Services\PHPArrayConfig ;
-use icelineLtd\icelineLtdDocRenderBundle\Services\WikiFactory ;
-use icelineLtd\icelineLtdDocRenderBundle\Tests\Mocks\MockPageCollection;
+use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig ;
+use icelineLtd\icelineDocRenderBundle\Services\WikiFactory ;
+use icelineLtd\icelineDocRenderBundle\Tests\Mocks\MockPageCollection;
 
 $_SERVER['SERVER_ADDR']='127.0.0.1';
 /**
@@ -38,7 +38,7 @@ class WikiFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->get() == 'Text_Wiki'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\WikiFactory::get
+     * @covers icelineLtd\icelineDocRenderBundle\Services\WikiFactory::get
      */
     public function testGet()
     {
@@ -49,7 +49,7 @@ class WikiFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\WikiFactory::setConfig
+     * @covers icelineLtd\icelineDocRenderBundle\Services\WikiFactory::setConfig
      * @todo   Implement testSetConfig().
      */
     public function testSetConfig()
@@ -60,7 +60,7 @@ class WikiFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\WikiFactory::setPageCollection
+     * @covers icelineLtd\icelineDocRenderBundle\Services\WikiFactory::setPageCollection
      * @todo   Implement testSetPageCollection().
      */
     public function testSetPageCollection()

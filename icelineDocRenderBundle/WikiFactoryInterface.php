@@ -1,10 +1,10 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle; 
+namespace icelineLtd\icelineDocRenderBundle; 
 
-use icelineLtd\icelineLtdDocRenderBundle\PageCollectionInterface;
-use icelineLtd\icelineLtdDocRenderBundle\WikiFactoryInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\PageCollectionInterface;
+use icelineLtd\icelineDocRenderBundle\WikiFactoryInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
 
 /**
  * WikiFactoryInterface

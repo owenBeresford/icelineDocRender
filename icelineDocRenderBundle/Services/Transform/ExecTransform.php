@@ -1,13 +1,16 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Transform;
+namespace icelineLtd\icelineDocRenderBundle\Services\Transform;
 
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkRendererInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\NoImplException;
-use icelineLtd\icelineLtdDocRenderBundle\TemplateRendererInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface ;
+use icelineLtd\icelineDocRenderBundle\ChunkRendererInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
+use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
+use Symfony\Bridge\Monolog\Logger;
+use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
 
 /**
  * TemplateRenderer 
@@ -54,7 +57,7 @@ class ExecTransform implements TemplateRendererInterface
 	 * @param LogInterface $l 
 	 * @return <self>
 	 */
-	function setLogger(LogInterface $l) {
+	function setLogger(Logger $l) {
 		$this->log=$l;
 		return $this;
 	}
@@ -65,7 +68,7 @@ class ExecTransform implements TemplateRendererInterface
 	 * @param SessionInterface $s 
 	 * @return <self>
 	 */
-	function setSession(SessionInterface $s) {
+	function setSession(SessionInterface  $s) {
 		$this->sess=$s;
 		return $this;		
 	}
@@ -76,7 +79,7 @@ class ExecTransform implements TemplateRendererInterface
 	 * @param ResourceInterface $in 
 	 * @access public
 	 * @return ResourceInterface
-	 * @assert $obj->transform($in) == 'icelineLtd\icelineLtdDocRenderBundle\ResourceInterface'
+	 * @assert $obj->transform($in) == 'icelineLtd\icelineDocRenderBundle\ResourceInterface'
 	 * add tests for other http actions
 	 * add tests for where there is no function
 	 */

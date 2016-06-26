@@ -1,11 +1,11 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Chunks;
+namespace icelineLtd\icelineDocRenderBundle\Services\Chunks;
 
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Chunks\ProgrammaticChunk;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 
 /**
  * ParseArgsChunk  
@@ -36,7 +36,7 @@ class ParseArgsChunk extends ProgrammaticChunk implements ChunkInterface
 	 */
 	function unpack($data, $name, $filter) {
 		$data=trim($data);
-		$data=explode($data,icelineLtd\icelineLtdDocRenderBundle\ResourceInterface::LIST_SPLIT );
+		$data=explode($data,icelineLtd\icelineDocRenderBundle\ResourceInterface::LIST_SPLIT );
 		
 		return new self($name, $data, self::getChunkType(), $filter);
 	}

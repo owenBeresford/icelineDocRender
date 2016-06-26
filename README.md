@@ -12,4 +12,10 @@ Objectives
 *     (a) the first renderer was called 'iceline', its the iceline file format document renderer.
 * (q) do you have something against DB?
 *     (a) my current use case doesn't have concurrent edits, so a DBMS is unneeded.  NB, It wouldn't be much effort to map ResourceHash->setContentFromFile to a MongoDB document read 
-*     
+*
+
+# Dependancies
+* Symfony (Will update this)
+* text_wiki https://packagist.org/packages/mrcore/text_wiki 
+* Swiftemailer is part of Symfony 
+ 

@@ -1,16 +1,16 @@
 <?php
 
-namespace icelineLtd\icelineLtdDocRenderBundle\Services\Transform;
+namespace icelineLtd\icelineDocRenderBundle\Services\Transform;
 
-use icelineLtd\icelineLtdDocRenderBundle\ChunkInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ResourceInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkTransformInterface;
-use icelineLtd\icelineLtdDocRenderBundle\ChunkRendererInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\BadResourceException;
-use icelineLtd\icelineLtdDocRenderBundle\TemplateRendererInterface;
-use icelineLtd\icelineLtdDocRenderBundle\Services\StaticValuesFactory ;
-use icelineLtd\icelineLtdDocRenderBundle\Services\ResourceHash ;
-use icelineLtd\icelineLtdDocRenderBundle\Exceptions\NoImplException;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkRendererInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
+use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
+use icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory ;
+use icelineLtd\icelineDocRenderBundle\Services\ResourceHash ;
+use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
 
 /**
  * TemplateRenderer 
