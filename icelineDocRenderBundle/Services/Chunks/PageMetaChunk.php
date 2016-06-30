@@ -50,9 +50,9 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return <new object>
 	 */
 	function unpack($data, $name, $filter) {
-		$data=$this->unpack_avps($data, ResourceInterface::MIMIMUM_AVP, true );
+		$data=$this->unpack_avps($data, ResourceInterface::MIMIMUM_AVP, false );
 		
-		return new self($name, $data, self::getChunktype(), $filter);
+		return (new self($name, $data, self::PAGE_META, $filter))->setConf($this->conf);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return <self>
 	 */
 	function validate() {
-		$mandatory_header			=[ 'docversion', 'accessgroup', 'method', 'codeversion', ];		
+		$mandatory_header			=[ 'docversion', 'accessgroup', 'method', 'codeversion', ];	
 		foreach($mandatory_header as $v) {
 			if(!array_key_exists($v, $this->data)) {
 				throw new BadResourceException("Missing required header items '$v'.");
@@ -80,7 +80,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 		if(array_key_exists('codeversion', $this->data) ) {
 #			$this->data['codeversion']		=floatval($this->data['codeversion']); 
 # tripple dot, can't
-			if(version_compare( $this->data['codeversion'], $this->conf->get(array('site_settings','platform_edition')), '>' ) ) {
+			if(version_compare( $this->data['codeversion'], $this->conf->get(['site_settings','platform_edition']), '>' ) ) {
 	            throw new BadVersionException($this->data['codeversion'] );
 			}
 # Allow slippage of minor alterations for bug fixes....

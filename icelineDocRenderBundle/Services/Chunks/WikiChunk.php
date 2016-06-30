@@ -48,7 +48,7 @@ class WikiChunk extends ProgrammaticChunk implements ChunkInterface
 	 */
 	function unpack($data, $name, $filter) {
 		
-		return new self($name, $data, self::getChunkType(), $filter);
+		return (new self($name, $data, self::WIKI, $filter))->setConf($this->conf);
 	}
 
 	/**

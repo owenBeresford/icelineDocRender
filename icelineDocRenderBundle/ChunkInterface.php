@@ -33,6 +33,7 @@ interface ChunkInterface
 	const HTML="html";
 	const WIKI="wiki";
 	const JS="js";
+	const CSS="css";
 	
 
 	/**

@@ -72,7 +72,8 @@ class WikiRenderer implements ChunkTransformInterface
 	 * @return <self>
 	 */
 	public function setFormat($in) {
-		$this->format=$in;
+		//$this->format=$in;
+		return $this;
 	}
 
 
@@ -85,7 +86,7 @@ class WikiRenderer implements ChunkTransformInterface
 	 */
 	public function render(ChunkInterface $ci) {
 		$text=$ci->getData();
-		
+
 		$text						= $this->wiki->transform($text, $this->format);
 		$text = str_replace(" onclick=\"window.open(this.href, '_blank'); return false;\"", " target=\"_blank\"", $text);
 		$text = preg_replace("/<h([1-6]) id=\"([^\"]*)\">([^<]*)<a id=\"([^\"]*)\"><\/a><\/h[1-6]>/", "<h$1 id=\"$4\">$3</h$1>", $text );

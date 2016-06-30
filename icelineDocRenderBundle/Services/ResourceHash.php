@@ -51,7 +51,7 @@ class ResourceHash implements ResourceInterface
 	function setWorker(ChunkInterface $ct) {
 		$types=$ct::getChunkType();
 		if(!is_array($types)) { $types=[$types]; }
-		
+
 		foreach($types as $v) {
 			$this->impl[ $v] =$ct;
 		}
@@ -65,7 +65,7 @@ class ResourceHash implements ResourceInterface
 	 * @return <self>
 	 */
 	function setPageCollection(PagesCollectionInterface $pci) {
-		$this->pages=$pc;
+		$this->pages=$pci;
 		return $this;		
 	}
 	
@@ -98,11 +98,19 @@ class ResourceHash implements ResourceInterface
 		$this->chunks=[];
 		$LENGTH=count($list);
 		for($i=0; $i<$LENGTH; $i++) {
-			if(isset($this->impl[$list[$i]['type']])) {
+			if(isset($this->impl[ $list[$i]['type'] ])) {
 				try {
-					$this->chunks[]=$this->impl[ $list[$i]['type'] ]->unpack($list[$i]['data'], $list[$i]['name'], $list[$i]['type'] )
+					$this->chunks[$i]=$this->impl[ $list[$i]['type'] ]->unpack($list[$i]['data'], $list[$i]['name'], $list[$i]['type'] )
 											->setFormat($list[$i]['type']);
-					$this->directKeys[$name]=count($this->chunks)-1;
+					if(!$this->chunks[$i]->validate()) {
+						throw new BadResourceException("Chunk ".$list[$i]['name']." was bad.");
+					}
+					if($list[$i]['name']) {
+						$this->directKeys[ $list[$i]['name'] ]=count($this->chunks)-1;
+					} elseif(!isset($this->directKeys[ $list[$i]['type'] ])) {
+						$this->directKeys[ $list[$i]['type'] ]=count($this->chunks)-1;	
+					}
+
 				} catch(AddFileException $afe) {
 					$new=$afe->getResourceFile();
 					if($this->pages->exists($new)) {
@@ -113,7 +121,7 @@ class ResourceHash implements ResourceInterface
 					}
 				}
  			} else {
-				throw new BadResourceException("Unknown chunk type ".$list[$i]['name']);
+				throw new BadResourceException("Unknown chunk type for ".$list[$i]['name']." type=".$list[$i]['type']."=");
 			}
 		}
 	}
@@ -252,8 +260,8 @@ class ResourceHash implements ResourceInterface
 	 * @return <self>
 	 */
 	public function getMetaAttrib($name) {
-		if(isset($this->directKeys['meta'])) {
-			return $this->chunks[ $this->directKeys['meta'] ]->getAttribute($name);
+		if(isset($this->directKeys['pagemeta'])) {
+			return $this->chunks[ $this->directKeys['pagemeta'] ]->getAttribute($name);
 		}
 		return null;
 	}
@@ -294,13 +302,13 @@ class ResourceHash implements ResourceInterface
      */
     function next() {
 		$stay=true;
+	 	++$this->offset;
 		while($stay && $this->offset<count($this->chunks)) {
 			$tt=$this->chunks[$this->offset]->getFormat();
 			if(!$this->renderable($tt)) {
 				$this->offset++;
 			} else {
 				$stay=false;
-	 			++$this->offset;
 			}
 		}
     }
@@ -397,6 +405,10 @@ class ResourceHash implements ResourceInterface
 		}
 		return $list;
 	}}}	
+
+	function get_meta() {
+		return @$this->chunks[ $this->directKeys['pagemeta'] ];
+	}
 	
 }
 

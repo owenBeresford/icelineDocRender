@@ -79,19 +79,11 @@ class ProgrammaticChunk implements ChunkInterface
 
 	/**
 	 * getData
-	 * if this is a callable it executes it (for tables, tablists etc).
-	 * if a page post/get dont run this here, as it will not have access to params 
 
 	 * @return mixed, the unpacked chunk
 	 */
 	function getData() {
-		if(is_callable($this->data) && 
-			!($this->name==='do_get' || $this->name==='do_post')) {
-			$t=$this->data;
-			return $t(null, null, null, null);
-		} else {
-			return $this->data;
-		}
+		return $this->data;
 	}
 
 	/**

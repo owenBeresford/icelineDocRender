@@ -3,8 +3,12 @@
 namespace icelineLtd\icelineDocRenderBundle\Services\Chunks;
 
 use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
 use icelineLtd\icelineDocRenderBundle\Services\PHPExecService;
+use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 
 /**
  * ParseAsPHP5Chunk 
@@ -18,6 +22,9 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 {
 
 	protected $compile;
+	protected $conf;
+	protected $resrc;
+	protected $log;
 	
 	/**
 	 * setPHP
@@ -29,7 +36,49 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 		$this->compile=$pes;
 		return $this;
 	}
+
+	/**
+	 * __destruct
+	 * 
+	 * @return <self>
+	 */
+	function __destruct() {
+		unset($this->resrc);
+	}
 	
+	/**
+	 * setConfig
+	 * 
+	 * @param ConfigInterface $ci 
+	 * @return <self>
+	 */
+	function setConf(ConfigInterface $ci) {
+		$this->conf=$ci;
+		return $this;
+	}
+
+	/**
+	 * setLog
+	 * 
+	 * @param LoggerInterface $log 
+	 * @return <self>
+	 */
+	function setLog(LoggerInterface $log) {
+		$this->log=$log;
+		return $this;
+	}
+
+	/**
+	 * setResource
+	 * 
+	 * @param ResourceInterface $ri 
+	 * @return <self>
+	 */
+	function setResource(ResourceInterface $ri) {
+		$this->resrc=$ri;
+		return $this;
+	}
+
 	/**
 	 * getChunkType ~ 
 	 * 
@@ -47,7 +96,11 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return <new object>
 	 */
 	function unpack($data, $name, $filter) {
-		return new self($name, $data, "FAIL!", $filter);
+		return (new self($name, $data, "FAIL!", $filter))
+				->setPHP($this->compile)
+				->setConf($this->conf)
+				->setLog($this->log)
+				->setResource($this->resrc);
 	}
 
 	/**
@@ -63,6 +116,31 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 		}
  		return true;
 	}		
+
+	/**
+	 * getData
+	 * if this is a callable it executes it (for tables, tablists etc).
+	 * if a page post/get dont run this here, as it will not have access to params 
+
+	 * @return mixed, the unpacked chunk
+	 */
+	function getData() {
+		if(!($this->name===self::DO_GET || $this->name===self::DO_POST)) {
+			try {
+				$t=$this->data;
+				$fake1=[];
+				$fake2=new \StdClass();
+//	public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page') {
+				return $t($this->log, $fake1, $fake2, $this->conf, $this->resrc);
+			} catch(\Exception $e ) {
+				throw new BadResourceException("ERROR in ".$this->name." ".$e->getMessage());
+			}
+		} else {
+			return $this->data;
+		}
+	}
+
+
 
 }
 # vi: ts=4

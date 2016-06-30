@@ -105,7 +105,7 @@ $site_settings							=array(
 	'cookie_domain'			=>'',
 	'log_cache_size'		=>1024,
 	'cookie_lifetime'		=>20*60, # seconds
-	'error_template'		=>array('report-error-v2'=>2, 'report-error'=>0),
+	'error_template'		=>'report-error-v2',
 	'extra_markers'			=>array('error-message'),
 
 	'safe_engine'			=>1,
@@ -133,6 +133,7 @@ $site_settings							=array(
 	'description'			=>'Read an exciting article on my site.',
 	'iterate_translate'		=>0,
 	'is_test'				=>0,
+	'aasset_dir'			=>'asset',
 	'extra-js'				=>array('env'),
 );
 

@@ -23,7 +23,7 @@ class PlainChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return string
 	 */
 	static function getChunkType() {
-		return [self::PLAIN, self::HTML];
+		return [self::PLAIN, self::HTML, self::CSS, self::JS];
 	}
 
 	/**

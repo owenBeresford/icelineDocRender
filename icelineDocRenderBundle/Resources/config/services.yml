@@ -30,6 +30,10 @@ services:
     parseAsPHP5Chunk:
         class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk
         arguments: [ "test", "<h1>hello world</h1>", "php", false ]
+            - [ setPHP, [ "@phpExecService"] ]
+            - [ setConf, [ "@config" ]]
+            - [ setResource, [ "@resourceHash"]]
+            - [ setLog, [ "@logger"]]
 
     plainChunk:
         class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\PlainChunk
@@ -54,6 +58,7 @@ services:
             - [ setWorker, [ "@noTransformRenderer" ] ] 
             - [ setWorker, [ "@formRenderer" ] ] 
             - [ setWorker, [ "@jsRenderer" ] ] 
+            - [ setWorker, [ "@cssRenderer" ] ] 
             - [ setWorker, [ "@tableRenderer" ] ] 
             - [ setWorker, [ "@tabListRenderer" ] ] 
             - [ setWorker, [ "@wikiRenderer" ] ] 
@@ -68,6 +73,7 @@ services:
             - [ setTransform, [ "@frameTransform" ] ] 
             - [ setTransform, [ "@templateTransform" ] ] 
             - [ setResource, [ "@resourceHash"]]
+            - [ setLog, [ "@logger"]]
 
     resourceHash:
         class: icelineLtd\icelineDocRenderBundle\Services\ResourceHash
@@ -131,6 +137,11 @@ services:
         arguments: [ ]
         calls: 
 
+    cssRenderer :
+        class: icelineLtd\icelineDocRenderBundle\Services\Render\CSSRenderer
+        arguments: [ ]
+        calls: 
+
     tableRenderer: 
         class: icelineLtd\icelineDocRenderBundle\Services\Render\TableRenderer
         arguments: [ ]
@@ -148,7 +159,7 @@ services:
 
     wikiRenderer :
         class: icelineLtd\icelineDocRenderBundle\Services\Render\WikiRenderer
-        arguments: [ "Text_Wiki" ]
+        arguments: [ "xhtml" ]
         calls: 
             - [setConfig, ["@config"] ]
             - [setWiki, ["@wikiFactory"] ]
@@ -158,6 +169,12 @@ services:
         calls:
             - [setConfig, ["@config"]  ]
             - [setPageCollection, ["@pagesCollection"]]
+
+    phpExecService:
+        class: icelineLtd\icelineDocRenderBundle\Services\PHPExecService
+        calls:
+            - [setConfig, ["@config"]]
+            - [setLogger, ["@logger"]]
 
     htmlise:
         class: icelineLtd\icelineDocRenderBundle\Services\HTMLise

@@ -34,7 +34,10 @@ class MockPageCollection implements PagesCollectionInterface
 				'page-1',
 				'makeFramePage001',
 				'makeFramePage002',
-				'other-page'
+				'other-page',
+				'home',
+				'home-test',
+				'reach-frame',
 		];
 		$this->maker=new ResourceMaker();
 	}

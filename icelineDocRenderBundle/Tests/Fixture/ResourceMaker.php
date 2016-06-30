@@ -3,8 +3,20 @@
 namespace icelineLtd\icelineDocRenderBundle\Tests\Fixture;
 
 use icelineLtd\icelineDocRenderBundle\Services\ResourceHash;
+use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig;
+use icelineLtd\icelineDocRenderBundle\Services\PHPExecService;
+use icelineLtd\icelineDocRenderBundle\Tests\Mocks\MockPageCollection;
+use icelineLtd\icelineDocRenderBundle\Tests\Mocks\MockLogger;
 use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\PageMetaChunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\NextResourceChunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\PlainChunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\WikiChunk;
+# use icelineLtd\icelineDocRenderBundle\Services\PagesCollection;
 use icelineLtd\icelineDocRenderBundle\ResourceInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
+
 
 /**
  * ResourceMaker 
@@ -47,5 +59,18 @@ class ResourceMaker
 		return $rh;
 	}
 
-
+	function makeUsableResource(PHPArrayConfig $p) {
+		$rh=new ResourceHash();
+		$rh->setWorker((new PageMetaChunk('pagemeta', ['frame'=>'unknownResource', 'docversion'=>'2.0.0', 'accessgroup'=>1, 'method'=>'GET', 'codeversion'=>'2.0.0' ], 'pagemeta'))->setConf($p));
+		$ttt=new PHPExecService();
+		$ttt->setConfig($p);
+		$ttt->setLogger( new MockLogger());
+        $rh->setWorker((new ParseAsPHP5Chunk('test02', 'return "hello world"', 'php' ))->setPHP($ttt)->setConf($p)->setResource($rh)->setLog(new MockLogger()));
+        $rh->setWorker(new PlainChunk('test03', '<h1>HEELLO, TEST W0RLD!</h1>', 'html'));
+        $rh->setWorker((new WikiChunk('test04', '<h1>HEELLO, TEST W0RLD!</h1>', 'wiki'))->setConf($p));
+        $rh->setWorker(new ProgrammaticChunk('test05', '<h1>HEELLO, TEST W0RLD!</h1>', 'html'));
+        $rh->setWorker(new NextResourceChunk('test06', 'return "hello world"', 'nextresource' ));
+        $rh->setPageCollection(new MockPageCollection($p));
+   		return $rh; 
+	}
 }

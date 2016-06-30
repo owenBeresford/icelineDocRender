@@ -5,8 +5,7 @@ namespace icelineLtd\icelineDocRenderBundle\Services;
 use icelineLtd\icelineDocRenderBundle\ChunkInterface;
 use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 use icelineLtd\icelineDocRenderBundle\ConfigInterface;
- use icelineLtd\icelineDocRenderBundle\LogInterface;
-use Symfony\Bridge\Monolog\Logger;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * PHPExecService 
@@ -49,7 +48,7 @@ class PHPExecService
 	 * @param LogInterface $l 
 	 * @return <this>
 	 */
-	function setLogger(Logger $l) {
+	function setLogger(LoggerInterface $l) {
 		$this->log=$l;
 		return $this;
 	}

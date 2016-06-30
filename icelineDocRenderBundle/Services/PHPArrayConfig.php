@@ -102,7 +102,7 @@ class PHPArrayConfig implements ConfigInterface
 						break;
 					}
 				} else {
-					break;
+					return null;
 				}
 			}
 

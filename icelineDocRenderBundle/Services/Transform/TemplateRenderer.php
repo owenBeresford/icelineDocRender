@@ -57,6 +57,7 @@ class TemplateRenderer implements TemplateRendererInterface
 	function setWorker(ChunkTransformInterface $cti) {
 		$t=$cti->getChunkType();
 		if(!is_array($t)) { $t=[$t]; }
+
 		foreach($t as $v) {
 			$this->impl[$v]=$cti->setFormat($v);
 		}
@@ -75,13 +76,16 @@ class TemplateRenderer implements TemplateRendererInterface
 	public function transform(ResourceInterface $ri) {
 		$out=$this->impl[StaticValuesFactory::NAME]->get($ri);
 		$this->replacements=[];
-		
+
 		$ri->rewind();
 		while($ri->valid()) {
 			$t=$ri->current();
 			if(ResourceHash::renderable($t->getFormat())) {
+				if(! isset($this->impl[$t->getFormat()]) ) {
+					throw new NoImplException("Unknown format ".$t->getFormat());
+				}
 				$tout=$this->impl[$t->getFormat()]->render($t);
-				$out->addChunkRaw($t->getName(), $tout, ChunkInterface::HTML);
+				$out->setChunkRaw($t->getName(), $tout, ChunkInterface::HTML);
 			
 				$this->extractMap($tout);
 			}
@@ -102,7 +106,7 @@ class TemplateRenderer implements TemplateRendererInterface
 	 */
 	function extractMap($tout) {
 		$matches=[];
-		if(preg_match_all('/'.preg_quote(ResourceInterface::MARKER_START).'([^\]]+)'.preg_quote(ResourceInterface::MARKER_END).'/', $tout, $matches)) {
+		if(preg_match_all('/'.preg_quote(ResourceInterface::MARKER_START).'([^\]\[]+)'.preg_quote(ResourceInterface::MARKER_END).'/', $tout, $matches)) {
 			for($i=0, $LENGTH=count($matches[1]); $i<$LENGTH; $i++) {
 				$this->replacements[]=$matches[1][$i];
 			}
@@ -127,11 +131,13 @@ class TemplateRenderer implements TemplateRendererInterface
 		for($i=0, $LENGTH=count($names); $i<$LENGTH; $i++) {
 			$marker=ResourceInterface::MARKER_START.$names[$i].ResourceInterface::MARKER_END;
 			$map[ $marker ] = $out->getChunk($names[$i]);
-			if($map[ $marker ] !== null) {
+			if($map[ $marker ] === null) {
 				$map[ $marker ]=$in->getChunk($names[$i] );
 			}
-			if($map[ $marker ] !== null) {
+			if($map[ $marker ] === null) {
 				throw new BadResourceException("Unknown chunk ".$names[$i]);
+			} else {
+				$map[$marker] = $map[$marker]->getData();
 			}
 		}
 		return $map;
@@ -153,9 +159,9 @@ class TemplateRenderer implements TemplateRendererInterface
 		while($out->valid()) {
 			$cur=$out->current();
 			$t=$cur->getData();
-			if(gettype($t)=='string') {
+			if(gettype($t)==='string') {
 				$t=str_replace($keys, $values, $t);
-				$out->setChunk($cur->getName(), $cur->setData($t));
+				$out->setChunk(	$cur->getName(), $cur->setData($t));
 			}
 			$out->next();
 		}

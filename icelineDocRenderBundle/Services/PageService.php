@@ -9,7 +9,7 @@ use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
 use icelineLtd\icelineDocRenderBundle\PageServiceInterface;
-
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * PageService 
@@ -26,7 +26,7 @@ class PageService implements PageServiceInterface
 	protected $resrc;
 	protected $whine;
 	protected $conf;
-	
+	protected $log;	
 	
 	/**
 	 * setDebug
@@ -71,6 +71,17 @@ class PageService implements PageServiceInterface
 		$this->sess=$s;
 		return $this;		
 	}
+
+	/**
+	 * setLog
+	 * 
+	 * @param LoggerInterface $l 
+	 * @return <self>
+	 */
+	function setLog(LoggerInterface $l) {
+		$this->log=$l;
+		return $this;
+	}
 	
 	/**
 	 * setResource
@@ -99,24 +110,30 @@ class PageService implements PageServiceInterface
 			for($i=0, $LENGTH=count($this->impl); $i<$LENGTH; $i++) {
 				$this->resrc=$this->impl[$i]->transform($this->resrc);
 			}
-			return $this->resrc->getChunk(ChunkInterface::ROOTNAME)->getData();
+
+			$t=$this->resrc->getChunk(ChunkInterface::ROOTNAME);
+			if(null===$t) {
+				$this->log->info("INFO Can't find root element in $page ");
+				return 500;
+			} else {
+				return $t->getData();
+			}
 			
 		} catch(BadResourceException $bre) {
+			$this->log->info($bre->getMessage());
 			if(!$this->whine) {
 				return 500;
 			} else {
-				try {
-					$this->sess->set('error-messages', array_merge($this->sess->get('error-messages', []), [$bre->getMessage()]));
-					$this->resrc->setContentFromFile($this->conf->get(['site_settings', 'error_template']));
-					for($i=0, $LENGTH=count($this->impl); $i<$LENGTH; $i++) {
-						$this->resrc=$this->impl[$i]->transform($this->resrc);
-					}				
-					return $this->resrc->getChunk(ChunkInterface::ROOTNAME)->getData();
-				} catch(\Exception $e) {
-					return 500;
+				if($this->sess) {
+					$this->sess->set('error-messages', array_merge([$bre->getMessage()], $this->sess->get('error-messages', []) ));
 				}
+
+				$this->whine=true;
+				$this->log->info(__CLASS__.'#'.__LINE__);
+				return $this->render($this->page->toFile($this->conf->get(['site_settings', 'error_template'])));
 			}
 		}
+		throw new NoImplException("this state can't happen ".__CLASS__.'#'.__LINE__);
 	}
 	
 }

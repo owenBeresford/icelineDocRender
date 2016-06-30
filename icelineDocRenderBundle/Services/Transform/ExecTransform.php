@@ -9,8 +9,8 @@ use icelineLtd\icelineDocRenderBundle\ConfigInterface ;
 use icelineLtd\icelineDocRenderBundle\ChunkRendererInterface;
 use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
 use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
-use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * TemplateRenderer 
@@ -54,10 +54,10 @@ class ExecTransform implements TemplateRendererInterface
 	/**
 	 * setLogger
 	 * 
-	 * @param LogInterface $l 
+	 * @param LoggerInterface $l 
 	 * @return <self>
 	 */
-	function setLogger(Logger $l) {
+	function setLogger(LoggerInterface $l) {
 		$this->log=$l;
 		return $this;
 	}
