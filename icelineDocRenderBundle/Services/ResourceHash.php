@@ -37,9 +37,22 @@ class ResourceHash implements ResourceInterface
 	function __construct() {
 		$this->impl=[];
 		$this->pages=[];
+		$this->offset=0;
 		$this->chunks=[];
 		$this->directKeys=[];
 		$this->name='UNKNOWN!';
+	}
+
+	function __clone() {
+		$this->offset=0;
+		$this->chunks=[];
+		$this->directKeys=[];
+		$this->name="UNKNOWN!";
+
+		foreach($this->impl as $i=>$v) {
+			$this->impl[$i]=clone $this->impl[$i];
+		}
+		$this->pages=clone $this->pages;
 	}
 
 	/**
@@ -208,11 +221,12 @@ class ResourceHash implements ResourceInterface
 	 * @param string $value 
 	 * @return <self>
 	 */
-	public function appendChunk($name, $value) {
-		if(isset($this->chunks[$name])) {
-			$this->chunks[$name]->appendData($value);
+	public function appendChunk($name, ChunkInterface $value) {
+		if(isset($this->directKeys[$name])) {
+			$this->chunks[ $this->directKeys[$name] ]->appendData($value->getData());
 		} else {
-			$this->chunks[$name]= new ProgrammaticChunk($name, $value, 'plain', null);
+			$this->chunks[]= $value;
+			$this->directKeys[$name]=count($this->chunks)-1;
 		}
 		return $this;
 	}

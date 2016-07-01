@@ -4,6 +4,7 @@ namespace icelineLtd\icelineDocRenderBundle\Services;
 
 use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
 use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 
 /**
  * PageCollection 
@@ -17,6 +18,7 @@ use icelineLtd\icelineDocRenderBundle\ConfigInterface;
  */
 class PageCollection implements PagesCollectionInterface
 {
+	protected $resrc;
 	protected $conf;
 	protected $pages;
 	protected $projectRoot;
@@ -37,6 +39,18 @@ class PageCollection implements PagesCollectionInterface
 			$this->pages[basename($v, ".wiki")]=$v;
 		}
 	}
+
+	/**
+	 * setResource
+	 * 
+	 * @param ResourceInterface $ri 
+	 * @return <self>
+	 */
+	function setResource(ResourceInterface $ri) {
+		$this->resrc=$ri;
+		return $this;
+	}
+
 
 	/**
 	 * toURL
@@ -79,9 +93,9 @@ class PageCollection implements PagesCollectionInterface
 	 * @return <ResourceHash>
 	 */
 	function getResource($name=null) {
-		$rh= new ResourceHash();
-		if($name) {
-			if(!strpos($name, '/')!==false) {
+		$rh= clone $this->resrc;
+		if($name!==null) {
+			if(strpos($name, '/')===false) {
 				$name=$this->toFile($name);
 			}
 			$rh->setContentFromFile($name);

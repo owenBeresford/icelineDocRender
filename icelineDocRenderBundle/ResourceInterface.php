@@ -127,7 +127,7 @@ interface ResourceInterface extends \Iterator
 	 * @param string $value 
 	 * @return <self>
 	 */
-	function appendChunk($name, $value) ;
+	function appendChunk($name, ChunkInterface $value) ;
 
 	/**
 	 * merge

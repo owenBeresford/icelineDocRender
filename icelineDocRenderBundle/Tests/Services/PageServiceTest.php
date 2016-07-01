@@ -100,6 +100,16 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testRender3()
+    {
+		$page="home";
+		$page=__DIR__."/../../Resources/pages/$page.wiki";
+        $this->assertEquals(
+            'string',
+            gettype($this->obj->render($page))
+        );
+    }
+
 
 
 

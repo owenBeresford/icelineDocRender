@@ -26,10 +26,13 @@ services:
     pageMetaChunk:
         class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\PageMetaChunk
         arguments: [ "test", "<h1>hello world</h1>", "pagemeta", false ]
+        calls:
+            - [ setConf, [ "@config" ]]
 
     parseAsPHP5Chunk:
         class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk
         arguments: [ "test", "<h1>hello world</h1>", "php", false ]
+        calls:
             - [ setPHP, [ "@phpExecService"] ]
             - [ setConf, [ "@config" ]]
             - [ setResource, [ "@resourceHash"]]
@@ -42,6 +45,8 @@ services:
     wikiChunk:
         class:  icelineLtd\icelineDocRenderBundle\Services\Chunks\WikiChunk
         arguments: [ "test", "<h1>hello world</h1>", "wiki", false ]
+        calls:
+            - [ setConf, [ "@config" ]]
 
     icelineController:
         class:  icelineLtd\icelineDocRenderBundle\Controller\IcelineController
@@ -118,6 +123,8 @@ services:
     pagesCollection:
         class: icelineLtd\icelineDocRenderBundle\Services\PageCollection
         arguments: [ "@config" ]
+        calls:
+            - [setResource, ["@resourceHash"] ]
 
     noTransformRenderer:
         class: icelineLtd\icelineDocRenderBundle\Services\Render\NoTransformRenderer

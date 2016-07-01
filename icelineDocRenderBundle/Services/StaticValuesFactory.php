@@ -70,7 +70,7 @@ class StaticValuesFactory
 	 * Add more tests manually
 	 */
 	public function get(ResourceInterface $in) {
-		$out		= $this->pages->getResource('blank');
+		$out		= $this->pages->getResource();
 			$e=[];
 		if($this->sess) {
 			$e		= $this->sess->get('error-message');

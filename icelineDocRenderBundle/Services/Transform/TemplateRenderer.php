@@ -86,14 +86,15 @@ class TemplateRenderer implements TemplateRendererInterface
 				}
 				$tout=$this->impl[$t->getFormat()]->render($t);
 				$out->setChunkRaw($t->getName(), $tout, ChunkInterface::HTML);
-			
 				$this->extractMap($tout);
 			}
 			$ri->next();
 		}
 		
 		$map=$this->mapValues($this->replacements, $ri, $out);
-		$out=$this->applyMap($map, $out);
+		// apply applyMap() until there are no more replacement markers
+		while($this->applyMap($map, $out)) {; }
+
 		return $out;
 	}
 
@@ -128,6 +129,7 @@ class TemplateRenderer implements TemplateRendererInterface
 	 */
 	function mapValues(array $names, ResourceInterface $in, ResourceInterface $out) {
 		$map=[];
+		$out2=[];
 		for($i=0, $LENGTH=count($names); $i<$LENGTH; $i++) {
 			$marker=ResourceInterface::MARKER_START.$names[$i].ResourceInterface::MARKER_END;
 			$map[ $marker ] = $out->getChunk($names[$i]);
@@ -137,10 +139,14 @@ class TemplateRenderer implements TemplateRendererInterface
 			if($map[ $marker ] === null) {
 				throw new BadResourceException("Unknown chunk ".$names[$i]);
 			} else {
-				$map[$marker] = $map[$marker]->getData();
+				$out2[$marker]=$map[$marker]->getData();
+				if(is_object($out2[$marker]) /* && !is_callable($map[$marker]) */ ) {
+					var_dump("I don't understand $marker");
+					$out2[$marker]=$out2[$marker]->getData();	
+				}
 			}
 		}
-		return $map;
+		return $out2;
 	}
 
 	/**
@@ -151,21 +157,23 @@ class TemplateRenderer implements TemplateRendererInterface
 	 * @return array
 	 * @assert $obj->applyMap(['test001'=>"dgdgdfgdf"], $out) == 'array'
 	 */
-	function applyMap(array $map, ResourceInterface $out) {
+	function applyMap(array $map, ResourceInterface &$out) {
 		$keys=array_keys($map);
 		$values=array_values($map);
+		$changes=0;
 		
 		$out->rewind();
 		while($out->valid()) {
 			$cur=$out->current();
 			$t=$cur->getData();
 			if(gettype($t)==='string') {
-				$t=str_replace($keys, $values, $t);
+				$t=str_replace($keys, $values, $t, $chng);
 				$out->setChunk(	$cur->getName(), $cur->setData($t));
+				$changes+=$chng;
 			}
 			$out->next();
 		}
-		return $out;
+		return $changes;
 	}
 
 
