@@ -108,7 +108,8 @@ $(document).ready(function() {
 })
 EOJS;
 		$pc=new ProgrammaticChunk("random".time(), $tmp, "js", null);
-		$this->file->appendChunk('extraHeader', $this->template->render($pc));	
+		$pc->setData($this->template->render($pc));
+		$this->file->appendChunk('extraHeader', $pc);	
 
 		return $text;
 	}
@@ -124,7 +125,7 @@ EOJS;
 	 * @access public
 	 * @return string
 	 */
-	function makeTabList($args) {{{
+	function makeTabList($args) {
 		$out		= "";
 		$data		= array();
 		$top		= "<ul class=\"tabList\">\n";
@@ -210,7 +211,7 @@ EOJS;
 		} else {
 			return $data;
 		}
-	}}}
+	}
 	
 } 
 # vi: ts=4

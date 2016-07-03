@@ -3,10 +3,10 @@
 namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
 use icelineLtd\icelineDocRenderBundle\ConfigInterface;
- use icelineLtd\icelineDocRenderBundle\ChunkInterface;
-  use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
- use icelineLtd\icelineDocRenderBundle\Exception\BadResourceException ;
-  use icelineLtd\icelineDocRenderBundle\Services\HTMLise; 
+use icelineLtd\icelineDocRenderBundle\ChunkInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\Exception\BadResourceException ;
+use icelineLtd\icelineDocRenderBundle\Services\HTMLise; 
 
 /**
  * TableRenderer 
@@ -110,7 +110,6 @@ class TableRenderer implements ChunkTransformInterface
 		}
 		return $this->htmlise->get_buffer();		
 	}
-	
 	
 } 
 # vi: ts=4

@@ -7,6 +7,7 @@ use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * JSRenderer
+ * NOTEST
  * 
  * @uses ChunkTransformInterface
  * @package 
@@ -51,7 +52,7 @@ class CSSRenderer implements ChunkTransformInterface
 	 */
 	public function render(ChunkInterface $ci) {
 		$text=$ci->getData();
-// strip the type attrib when happy no old browsers, not needed fo HTML5		
+// strip the type attrib when happy there are no old browsers, its not needed for HTML5		
 		return "<style type=\"text/css\">\n$text\n</style>";
 	}
 	

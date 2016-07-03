@@ -108,7 +108,7 @@ class FilterTransform implements TemplateRendererInterface
 			break;
 
 		default:
-			throw new BadResourceException("Unknown filter ".$ci->getFilter());
+			throw new BadResourceException("Unknown filter ".$ci->getFilter()." on chunk ".$ci->getName());
 		}
 		return $ci;
 	}

@@ -3,10 +3,11 @@
 namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
  use icelineLtd\icelineDocRenderBundle\ChunkInterface;
-  use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+ use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * JSRenderer
+ * NOTEST
  * 
  * @uses ChunkTransformInterface
  * @package 

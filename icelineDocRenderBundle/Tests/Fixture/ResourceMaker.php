@@ -87,4 +87,15 @@ class ResourceMaker
         $rh->setPageCollection(new MockPageCollection($p));
    		return $rh; 
 	}
+
+	function getTabList001() {
+		$rh=new ResourceHash(); 
+
+		return $rh;
+	}
+
+	function getTable01() {
+		
+	}
+	
 }

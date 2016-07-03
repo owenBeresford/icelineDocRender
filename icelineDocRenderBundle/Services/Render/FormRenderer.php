@@ -130,8 +130,8 @@ class FormRenderer implements ChunkTransformInterface
 	/**
 	 * generateCSRF
 	 * 
-	 * @param array $items 
-	 * @return <self>
+	 * @param array $items MODIFIED
+	 * @return void
 	 */
 	function generateCSRF(array &$items) {
 		$tt				= $this->sess->get("forms.$name.csrf.key" );
@@ -159,7 +159,7 @@ class FormRenderer implements ChunkTransformInterface
 	/**
 	 * getPreviousPost
 	 * 
-	 * @return <self>
+	 * @return array of data
 	 */
 	function getPreviousPost() {
 		$post				=[];

@@ -81,8 +81,8 @@ services:
             - [ setConfig, [ "@config" ]]
             - [ setTransform, [ "@execTransform" ] ] 
             - [ setTransform, [ "@frameTransform" ] ] 
-            - [ setTransform, [ "@filterTransform" ] ] 
             - [ setTransform, [ "@templateTransform" ] ] 
+            - [ setTransform, [ "@filterTransform" ] ] 
             - [ setTransform, [ "@templateMerge" ] ] 
             - [ setResource, [ "@resourceHash"]]
             - [ setLog, [ "@logger"]]
@@ -182,7 +182,6 @@ services:
         class: icelineLtd\icelineDocRenderBundle\Services\Render\WikiRenderer
         arguments: [ "xhtml" ]
         calls: 
-            - [setConfig, ["@config"] ]
             - [setWiki, ["@wikiFactory"] ]
 
     wikiFactory:

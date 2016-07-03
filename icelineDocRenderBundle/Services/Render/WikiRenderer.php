@@ -3,12 +3,13 @@
 namespace icelineLtd\icelineDocRenderBundle\Services\Render;
 
 use icelineLtd\icelineDocRenderBundle\ConfigInterface;
- use icelineLtd\icelineDocRenderBundle\WikiFactoryInterface;
- use icelineLtd\icelineDocRenderBundle\ChunkInterface; 
- use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
+use icelineLtd\icelineDocRenderBundle\WikiFactoryInterface;
+use icelineLtd\icelineDocRenderBundle\ChunkInterface; 
+use icelineLtd\icelineDocRenderBundle\ChunkTransformInterface;
 
 /**
  * WikiRenderer 
+ * NOTEST
  * 
  * @package 
  * @version $id$
@@ -18,8 +19,7 @@ use icelineLtd\icelineDocRenderBundle\ConfigInterface;
 class WikiRenderer implements ChunkTransformInterface
 {
 	protected $wiki;
-	protected $conf;
-	protected $format;
+	protected $wikiformat;
 	
 	/**
 	 * __construct
@@ -28,21 +28,9 @@ class WikiRenderer implements ChunkTransformInterface
 	 * @return <self>
 	 */
 	function __construct($format) {
-		$this->format=$format;
+		$this->wikiformat=$format;
 	}
 		
-	/**
-	 * setConfig
-	 * 
-	 * @param ConfigInterface $c 
-	 * @return <self>
-	 */
-	function setConfig(ConfigInterface $c) {
-		$this->conf=$c;
-		// import settings
-		return $this;
-	}
-
 	/**
 	 * setWiki
 	 * 
@@ -65,14 +53,14 @@ class WikiRenderer implements ChunkTransformInterface
  	}
 
 	/**
-	 * setFormat
+	 * setFormat,
 	 * 
 	 * @param string $in 
 	 * @access public
 	 * @return <self>
 	 */
 	public function setFormat($in) {
-		//$this->format=$in;
+		$this->format=$in;
 		return $this;
 	}
 
@@ -83,11 +71,12 @@ class WikiRenderer implements ChunkTransformInterface
 	 * 
 	 * @param ChunkInterface $ci 
 	 * @return string
+	 * Cannot semantically unit-test a HTML fix in a unittester.  Needs to be done in a design tool.
 	 */
 	public function render(ChunkInterface $ci) {
 		$text=$ci->getData();
 
-		$text						= $this->wiki->transform($text, $this->format);
+		$text						= $this->wiki->transform($text, $this->wikiformat);
 		$text = str_replace(" onclick=\"window.open(this.href, '_blank'); return false;\"", " target=\"_blank\"", $text);
 		$text = preg_replace("/<h([1-6]) id=\"([^\"]*)\">([^<]*)<a id=\"([^\"]*)\"><\/a><\/h[1-6]>/", "<h$1 id=\"$4\">$3</h$1>", $text );
 		return $text;
