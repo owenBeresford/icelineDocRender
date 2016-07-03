@@ -52,7 +52,9 @@ class ResourceHash implements ResourceInterface
 		foreach($this->impl as $i=>$v) {
 			$this->impl[$i]=clone $this->impl[$i];
 		}
-		$this->pages=clone $this->pages;
+		if($this->pages) {
+			$this->pages=clone $this->pages;
+		}
 	}
 
 	/**
@@ -242,7 +244,7 @@ class ResourceHash implements ResourceInterface
 		while($in->valid()) {
 			$cur=$in->current();
 			if($cur->getFormat()!==ChunkInterface::PAGE_META) {
-				$this->appendChunk($cur->getName(), $cur);
+				$this->setChunk($cur->getName(), $cur);
 			}
 			$in->next();
 		}

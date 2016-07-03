@@ -14,6 +14,7 @@ use icelineLtd\icelineDocRenderBundle\ConfigInterface;
 use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
 use icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer;
+use icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateMerge;
 use icelineLtd\icelineDocRenderBundle\Services\Render\NoTransformRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Render\JSRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Render\CSSRenderer;
@@ -48,16 +49,21 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
 		$this->obj->setResource($this->maker->makeUsableResource($conf));
 
         $tmp = new TemplateRenderer();
-		$static=new StaticValuesFactory($conf) ;
-		$static->setPageCollection(new MockPageCollection($conf));
-		$tmp->setStaticsFactory( $static);
 		$tmp->setWorker(new NoTransformRenderer());
 		$tmp->setWorker(new CSSRenderer());
 		$tmp->setWorker(new JSRenderer());
 		$w=(new WikiFactory( ))->setConfig($conf)->setPageCollection(new MockPageCollection($conf));
 		$tmp->setWorker((new WikiRenderer("xhtml" ))->setWiki($w));
-// ....
 		$this->obj->setTransform($tmp);
+
+		// add TemplateMerge
+		$tmp=new TemplateMerge();
+		$static=new StaticValuesFactory($conf) ;
+		$static->setPageCollection(new MockPageCollection($conf));
+		$tmp->setStaticsFactory( $static);
+		$this->obj->setTransform($tmp);
+		
+// ....
 		$this->obj->setDebug(false);
     }
 
@@ -78,10 +84,12 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     {
 		$page="home-test";
 		$page=__DIR__."/../../Resources/pages/$page.wiki";
-        $this->assertEquals(
-            'string',
-            gettype($this->obj->render($page))
-        );
+		$html=$this->obj->render($page);
+        $this->assertEquals( 'string', gettype($html), "Got a webpage back from render" );
+
+		$this->assertEquals(0, preg_match('/\[\[/', $html), "All markers are evaluated");
+		$this->assertEquals(0, preg_match('/\]\]/', $html), "All markers are evaluated");
+
     }
 
     /**
@@ -89,27 +97,29 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
      *
      * @covers icelineLtd\icelineDocRenderBundle\Services\PageService::render
      */
-    public function testRender2()
+	public function testRender2()
     {
 //		$this->setExpectedException( "icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException");
 		$page="PANDA_STYLE";
 		$page=__DIR__."/../../Resources/pages/$page.wiki";
-        $this->assertEquals(
-            'integer',
-            gettype($this->obj->render($page))
-        );
+		$html=$this->obj->render($page);
+
+        $this->assertEquals(  'integer', gettype($html) );
+
     }
+
 
     public function testRender3()
     {
+// to make this test work, inject FrameTransform in the setup() 
 		$page="home";
 		$page=__DIR__."/../../Resources/pages/$page.wiki";
-        $this->assertEquals(
-            'string',
-            gettype($this->obj->render($page))
-        );
-    }
+		$html=$this->obj->render($page);
+        $this->assertEquals( 'string', gettype($html) );
 
+		$this->assertEquals(0, preg_match('/\[\[/', $html), "All markers are evaluated");
+		$this->assertEquals(0, preg_match('/\]\]/', $html), "All markers are evaluated");
+    }
 
 
 

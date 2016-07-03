@@ -57,7 +57,7 @@ class WikiChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return bool
 	 */
 	function validate() {
-		if( $this->conf->get(array('site_settings', 'markup_ascii_quotes')) ) {
+		if( $this->conf->get( ['site_settings', 'markup_ascii_quotes'] ) ) {
 				$this->data				= preg_replace('/"\b/', '“', $this->data);
 				$this->data				= preg_replace('/\b"/', '”', $this->data);
 // and more?

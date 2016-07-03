@@ -11,6 +11,7 @@ use icelineLtd\icelineDocRenderBundle\AddFileException;
  * IncludeChunk 
  * 
  * @package 
+ * NOTEST
  * @version $id$
  * @author oab1 / Owen Beresford / owen@iceline.ltd.uk  
  * @license AGPL {@link http://www.gnu.org/licenses/agpl-3.0.html}
@@ -36,7 +37,7 @@ class IncludeChunk extends ProgrammaticChunk implements ChunkInterface
 	 */
 	function unpack($data, $name, $filter) {
 		$data=trim($data);
-		throw new AddFileException("Just a test", $data);
+		throw new AddFileException("This text isn't used", $data);
 	}
 
 	/**

@@ -11,6 +11,7 @@ use icelineLtd\icelineDocRenderBundle\ResourceInterface;
  * NextResourceChunk 
  * 
  * @package 
+ * NOTEST
  * @version $id$
  * @author oab1 / Owen Beresford / owen@iceline.ltd.uk  
  * @license AGPL {@link http://www.gnu.org/licenses/agpl-3.0.html}
@@ -37,7 +38,7 @@ class NextResourceChunk extends ProgrammaticChunk implements ChunkInterface
 	function unpack($data, $name, $filter) {
 		$data=trim($data);
 		$data=$this->unpackList($data, ResourceInterface::LIST_SPLIT);
-		return new self($name, $data, self::getChunkType(), $filter);
+		return new self($name, $data, self::NEXT_RESOURCE, $filter);
 	}
 
 	/**

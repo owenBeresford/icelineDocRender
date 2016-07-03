@@ -9,7 +9,7 @@ use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
 
 
 /**
- *  ProgrammaticChunk  
+ *  ProgrammaticChunk ~ a "notype" chunk for use inside the project in buffers.
  * 
  * @package 
  * @version $id$
@@ -51,6 +51,7 @@ class ProgrammaticChunk implements ChunkInterface
 	
 	/**
 	 * unpack ~ transform data into internal structure
+	 * as I use these objects internally, I can't make this abstract and empty
 	 * 
 	 * @param string $data 
 	 * @return bool
@@ -60,7 +61,7 @@ class ProgrammaticChunk implements ChunkInterface
 	}
 
 	/**
-	 * validate
+	 * validate,
 	 * 
 	 * @return bool
 	 */
@@ -99,10 +100,23 @@ class ProgrammaticChunk implements ChunkInterface
 		return null;
 	}
 
+	/**
+	 * getFilter
+	 * 
+	 * @return <self>
+	 */
+	function getFilter(){
+		return $this->filter;
+	}
+
+	/**
+	 * getFormat
+	 * 
+	 * @return <self>
+	 */
 	function getFormat() {
 		return $this->type;
 	}
-
 	
 	/**
 	 * setFormat
@@ -124,7 +138,7 @@ class ProgrammaticChunk implements ChunkInterface
 	 */
 	function appendData($new) {
 		if(gettype($this->data)=='string') {
-			$this->data.=$new;
+			$this->data.=(string)$new;
 		}
 		return $this;
 	}
@@ -148,7 +162,7 @@ class ProgrammaticChunk implements ChunkInterface
 	 * @param string $bound (likely 1 char)
 	 * @return <self>
 	 */
-	function unpackList($lump, $bound=ResourceInterface::VALUE_LIST_SPLIT) {{{
+	function unpackList($lump, $bound=ResourceInterface::VALUE_LIST_SPLIT) {
 		if($lump) {
 			$t		= explode($bound, trim($lump));
 			foreach($t as $k=>$v) {
@@ -158,9 +172,9 @@ class ProgrammaticChunk implements ChunkInterface
 			}
 			return $t;
 		} else {
-			return '';
+			return [];
 		}
-	}}}
+	}
 	
 	/**
 	 * _request_mapper ~ utility function to convert English into ints

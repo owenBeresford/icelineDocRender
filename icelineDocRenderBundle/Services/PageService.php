@@ -129,7 +129,7 @@ class PageService implements PageServiceInterface
 				}
 
 				$this->whine=true;
-				$this->log->info(__CLASS__.'#'.__LINE__);
+$this->log->info(__CLASS__.'#'.__LINE__);
 				return $this->render($this->page->toFile($this->conf->get(['site_settings', 'error_template'])));
 			}
 		}

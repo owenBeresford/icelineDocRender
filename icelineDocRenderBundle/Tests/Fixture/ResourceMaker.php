@@ -59,6 +59,20 @@ class ResourceMaker
 		return $rh;
 	}
 
+	function getFilterResrc01() {
+		$rh=new ResourceHash();
+		$rh->setWorker((new PageMetaChunk('pagemeta', ['frame'=>'unknownResource', 'docversion'=>'2.0.0', 'accessgroup'=>1, 'method'=>'GET', 'codeversion'=>'2.0.0' ], 'pagemeta')));	
+        $rh->setWorker(new PlainChunk('test03', '<h1>HEELLO, TEST W0RLD!</h1>', 'html', false));
+        $rh->setWorker((new PlainChunk('test04', '<h1>HEELLO, TEST W0RLD!</h1>', 'html', 'encode')));
+        $rh->setWorker(new ProgrammaticChunk('test05', ['c'=>'rrterterte','ret'=>false], 'plain', 'json'));
+        $rh->setWorker(new NextResourceChunk('test06', 'return "hello world"', 'nextresource', false ));
+        $rh->setWorker(new PlainChunk('test03', '<h1>HEELLO, TEST W0RLD!</h1>', 'html', false));
+        $rh->setWorker((new PlainChunk('test04', '<h1>HEELLO, TEST W0RLD!</h1>', 'html')));
+        $rh->setWorker(new ProgrammaticChunk('test05', '<h1>HEELLO, TEST W0RLD!</h1>', 'html', false));
+        $rh->setWorker(new NextResourceChunk('test06', 'return "hello world"', 'nextresource' ));
+		return $rh;
+	}
+
 	function makeUsableResource(PHPArrayConfig $p) {
 		$rh=new ResourceHash();
 		$rh->setWorker((new PageMetaChunk('pagemeta', ['frame'=>'unknownResource', 'docversion'=>'2.0.0', 'accessgroup'=>1, 'method'=>'GET', 'codeversion'=>'2.0.0' ], 'pagemeta'))->setConf($p));

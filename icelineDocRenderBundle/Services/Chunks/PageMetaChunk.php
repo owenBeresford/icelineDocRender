@@ -60,7 +60,8 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 *
  	 * @Todo move literals into the constants in the interface
 	 * @throws BadResourceException
-	 * @return <self>
+	 * @return bool
+	 * Cant write ASSERTS for this method
 	 */
 	function validate() {
 		$mandatory_header			=[ 'docversion', 'accessgroup', 'method', 'codeversion', ];	
@@ -84,7 +85,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	            throw new BadVersionException($this->data['codeversion'] );
 			}
 # Allow slippage of minor alterations for bug fixes....
-			$t							= explode('.', $this->conf->get(array('site_settings','platform_edition')) );
+			$t							= explode('.', $this->conf->get(['site_settings','platform_edition']) );
 			$t[2]						= 0;
 			$t							= implode('.', $t);
 			if(version_compare( $this->data['codeversion'], $t, '<' ) ) {
@@ -108,7 +109,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 		}
 		if(array_key_exists('alternativepost', $this->data)) {
 			if(!function_exists($this->data['alternativepost'])) {
-				$f					=$this->conf->get(array('site_settings', 'site_dir'));
+				$f					=$this->conf->get(['site_settings', 'site_dir']);
 				$f					.="/".$this->data['alternativepost'].".php";
 				if(file_exists($f )) {
 					include_once($f);
@@ -126,14 +127,15 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	
 	/**
 	 * unpack_avps
-	 * 
+	 *
+	 * IMPORTED 
 	 * @param string $meta 
 	 * @param string $low 
 	 * @param bool $distinct, default true 
 	 * @throws BadResourceException
 	 * @return array of data
 	 */
-	function unpack_avps($meta, $low, $distinct=true) {{{
+	private function unpack_avps($meta, $low, $distinct=true) {
 		$avps							= [];
 		$avpsraw						= explode(ResourceInterface::LIST_SPLIT, $meta);
 		if(!is_array($avpsraw) || count($avpsraw)<$low) {			
@@ -167,7 +169,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 			}
 		}
 		return $avps;
-	}}}
+	}
 }
 # vi: ts=4
 # vim: ts=4 sw=4 fdm=marker syn=php

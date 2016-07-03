@@ -9,6 +9,7 @@ namespace icelineLtd\icelineDocRenderBundle;
  * @version $id$
  * @author oab1 / Owen Beresford / owen@iceline.ltd.uk  
  * @license AGPL {@link http://www.gnu.org/licenses/agpl-3.0.html}
+ // }}}
  */
 interface ChunkInterface
 {
@@ -47,6 +48,16 @@ interface ChunkInterface
 	const CODEVERSION='codeversion';
 	const FRAME='frame';
 	const ROOTNAME='root';
+
+	/**
+	 * current filters
+	 * 
+	 * @const string
+	 */
+	const NOWRAP='nowrap';
+	const ESCAPE='escape';
+	const ENCODE='encode';
+	const JSON='json';
 	
 	/**
 	 * getChunkType
@@ -84,6 +95,13 @@ interface ChunkInterface
 	 * @return mixed, the unpacked chunk
 	 */
 	function getData();
+
+	/**
+	 * getFilter
+	 * 
+	 * @return <self>
+	 */
+	function getFilter();
 	
 	/**
 	 * setData

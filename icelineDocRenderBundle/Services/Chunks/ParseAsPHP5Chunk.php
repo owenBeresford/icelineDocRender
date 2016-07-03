@@ -38,7 +38,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	}
 
 	/**
-	 * __destruct
+	 * __destruct ~ needed as this is a deps loop
 	 * 
 	 * @return <self>
 	 */
@@ -130,7 +130,8 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 				$t=$this->data;
 				$fake1=[];
 				$fake2=new \StdClass();
-//	public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page') {
+//	the params are:
+// public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page') {
 				return $t($this->log, $fake1, $fake2, $this->conf, $this->resrc);
 			} catch(\Exception $e ) {
 				throw new BadResourceException("ERROR in ".$this->name." ".$e->getMessage());

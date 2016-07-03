@@ -23,7 +23,6 @@ use icelineLtd\icelineDocRenderBundle\Exceptions\NoImplException;
 class TemplateRenderer implements TemplateRendererInterface
 {
 	protected $impl;
-	protected $replacements;
 	
 	/**
 	 * __construct
@@ -32,20 +31,8 @@ class TemplateRenderer implements TemplateRendererInterface
 	 */
 	function __construct() {
 		$this->impl=[];
-		$this->replacements=[];
 	}
 	
-	/**
-	 * setStaticsFactory
-	 * 
-	 * @param StaticValuesFactory $svf 
-	 * @return <self>
-	 */
-	function setStaticsFactory(StaticValuesFactory $svf) {
-		$this->impl[$svf::NAME]=$svf;
-		return $this;
-	}
-
 	/**
 	 * setWorker
 	 * 
@@ -74,8 +61,7 @@ class TemplateRenderer implements TemplateRendererInterface
 	 * count AVP in each
 	 */
 	public function transform(ResourceInterface $ri) {
-		$out=$this->impl[StaticValuesFactory::NAME]->get($ri);
-		$this->replacements=[];
+		$out=clone $ri;
 
 		$ri->rewind();
 		while($ri->valid()) {
@@ -86,104 +72,19 @@ class TemplateRenderer implements TemplateRendererInterface
 				}
 				$tout=$this->impl[$t->getFormat()]->render($t);
 				$out->setChunkRaw($t->getName(), $tout, ChunkInterface::HTML);
-				$this->extractMap($tout);
 			}
 			$ri->next();
 		}
-		
-		$map=$this->mapValues($this->replacements, $ri, $out);
-		// apply applyMap() until there are no more replacement markers
-		while($this->applyMap($map, $out)) {; }
-
+		$out->setChunk(ChunkInterface::PAGE_META, $ri->getChunk(ChunkInterface::PAGE_META));
 		return $out;
 	}
-
-	/**
-	 * extractMap ~ apply regex to extract named values
-	 * 
-	 * @param string $tout 
-	 * @return void
-	 * @assert $obj->extractMap("tst test [[test001]] test") == "the class"
-	 */
-	function extractMap($tout) {
-		$matches=[];
-		if(preg_match_all('/'.preg_quote(ResourceInterface::MARKER_START).'([^\]\[]+)'.preg_quote(ResourceInterface::MARKER_END).'/', $tout, $matches)) {
-			for($i=0, $LENGTH=count($matches[1]); $i<$LENGTH; $i++) {
-				$this->replacements[]=$matches[1][$i];
-			}
-		}	
-		return $this;
-	}
-	
-	/**
-	 * mapValues ~ pull (from either param) all the values apply to a hash, return hash
-	 * 
-	 * @param array $names 
-	 * @param ResourceInterface $in 
-	 * @param ResourceInterface $out 
-	 * @return hash of strings
-	 * @throws BadResourceException ~ if unknown value requested
-	 * @assert $obj->mapValues(['test001'], $in, $out) == 'array'
-	 * @assert $obj->mapValues(['PANDA STYLE'], $in, $out) == 'array'
-	 * for various values in in and out
-	 */
-	function mapValues(array $names, ResourceInterface $in, ResourceInterface $out) {
-		$map=[];
-		$out2=[];
-		for($i=0, $LENGTH=count($names); $i<$LENGTH; $i++) {
-			$marker=ResourceInterface::MARKER_START.$names[$i].ResourceInterface::MARKER_END;
-			$map[ $marker ] = $out->getChunk($names[$i]);
-			if($map[ $marker ] === null) {
-				$map[ $marker ]=$in->getChunk($names[$i] );
-			}
-			if($map[ $marker ] === null) {
-				throw new BadResourceException("Unknown chunk ".$names[$i]);
-			} else {
-				$out2[$marker]=$map[$marker]->getData();
-				if(is_object($out2[$marker]) /* && !is_callable($map[$marker]) */ ) {
-					var_dump("I don't understand $marker");
-					$out2[$marker]=$out2[$marker]->getData();	
-				}
-			}
-		}
-		return $out2;
-	}
-
-	/**
-	 * applyMap
-	 * 
-	 * @param array $map 
-	 * @param ResourceInterface $out 
-	 * @return array
-	 * @assert $obj->applyMap(['test001'=>"dgdgdfgdf"], $out) == 'array'
-	 */
-	function applyMap(array $map, ResourceInterface &$out) {
-		$keys=array_keys($map);
-		$values=array_values($map);
-		$changes=0;
-		
-		$out->rewind();
-		while($out->valid()) {
-			$cur=$out->current();
-			$t=$cur->getData();
-			if(gettype($t)==='string') {
-				$t=str_replace($keys, $values, $t, $chng);
-				$out->setChunk(	$cur->getName(), $cur->setData($t));
-				$changes+=$chng;
-			}
-			$out->next();
-		}
-		return $changes;
-	}
-
-
 	
 	/**
 	 * render
 	 * 
 	 * @param ChunkInterface $ci 
 	 * @access public
-	 o* @return <self>
+	 * @return <self>
 	 */
 	public function render(ChunkInterface $ci) {
 		if(isset($this->impl[$ci->getFormat()])) {

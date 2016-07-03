@@ -59,7 +59,6 @@ services:
         class: icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer
         arguments: []
         calls:
-            - [ setStaticsFactory, [ "@staticValuesFactory" ]]
             - [ setWorker, [ "@noTransformRenderer" ] ] 
             - [ setWorker, [ "@formRenderer" ] ] 
             - [ setWorker, [ "@jsRenderer" ] ] 
@@ -67,6 +66,12 @@ services:
             - [ setWorker, [ "@tableRenderer" ] ] 
             - [ setWorker, [ "@tabListRenderer" ] ] 
             - [ setWorker, [ "@wikiRenderer" ] ] 
+
+    templateMerge:
+        class: icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateMerge
+        arguments: []
+        calls:
+            - [ setStaticsFactory, [ "@staticValuesFactory" ]]
 
     pageService:
         class: icelineLtd\icelineDocRenderBundle\Services\PageService
@@ -76,7 +81,9 @@ services:
             - [ setConfig, [ "@config" ]]
             - [ setTransform, [ "@execTransform" ] ] 
             - [ setTransform, [ "@frameTransform" ] ] 
+            - [ setTransform, [ "@filterTransform" ] ] 
             - [ setTransform, [ "@templateTransform" ] ] 
+            - [ setTransform, [ "@templateMerge" ] ] 
             - [ setResource, [ "@resourceHash"]]
             - [ setLog, [ "@logger"]]
 
@@ -107,6 +114,13 @@ services:
        arguments: []
        calls:
             - [setPageCollection, ["@pagesCollection"] ]
+
+    filterTransform:
+       class: icelineLtd\icelineDocRenderBundle\Services\Transform\FilterTransform
+       arguments: []
+       calls:
+            - [setLogger, ["@logger"] ]
+
 
     config:
         class: icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig
