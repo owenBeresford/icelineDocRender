@@ -36,7 +36,10 @@ class ParseArgsChunk extends ProgrammaticChunk implements ChunkInterface
 	 */
 	function unpack($data, $name, $filter) {
 		$data=trim($data);
-		$data=explode($data,icelineLtd\icelineDocRenderBundle\ResourceInterface::LIST_SPLIT );
+		if($data{0}==\icelineLtd\icelineDocRenderBundle\ResourceInterface::LIST_SPLIT) {
+			$data=substr($data, 1);
+		}
+		$data=explode(\icelineLtd\icelineDocRenderBundle\ResourceInterface::LIST_SPLIT, $data );
 		
 		return new self($name, $data, self::getChunkType(), $filter);
 	}
@@ -50,6 +53,7 @@ class ParseArgsChunk extends ProgrammaticChunk implements ChunkInterface
 		if(count($this->data)==0) {
 			return false;
 		}
+
 		foreach($this->data as $k=>$v) {
 			$this->data[$k]=trim($this->data[$k]);
 			if($this->data[$k]=='') {

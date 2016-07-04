@@ -139,6 +139,7 @@ class ResourceHash implements ResourceInterface
 				throw new BadResourceException("Unknown chunk type for ".$list[$i]['name']." type=".$list[$i]['type']."=");
 			}
 		}
+		return $this;
 	}
 
 	/**
@@ -165,6 +166,10 @@ class ResourceHash implements ResourceInterface
 	 * @param string $format OPTIONAL default=wiki
 	 * @param string $filter OPTIONAL default=null
 	 * @return <self>
+	 * @assert $obj->setChunk("ssdf", "gdgdg", 'wiki', false) == $obj
+	 * @assert $obj->setChunk(1, "gdgdg", 'wiki', false) == $obj
+	 * @assert $obj->setChunk(new StdClass(), "gdgdg", 'wiki', false) == $obj
+	 * @assert $obj->setChunk(false, "gdgdg", 'wiki', false) == $obj
 	 */
 	public function setChunkRaw($name, $value, $format='wiki', $filter=false) {
 		if(is_int($name)) {
@@ -186,6 +191,11 @@ class ResourceHash implements ResourceInterface
 	 * @param string $name 
 	 * @param ChunkInterface $chunk 
 	 * @return <self>
+	 * @assert $obj->setChunk("ssdf", $in) == $obj
+	 * @assert $obj->setChunk(1, $in) == $obj
+	 * @assert $obj->setChunk(new StdClass(), $in) == $obj
+	 * @assert $obj->setChunk(false, $in) == $obj
+
 	 */
 	public function setChunk($name, ChunkInterface $chunk) {
 		if(is_int($name)) {
@@ -222,6 +232,7 @@ class ResourceHash implements ResourceInterface
 	 * @param string $name 
 	 * @param string $value 
 	 * @return <self>
+	 * @assert $obji->appendChunk("f1", $in) == $obj  
 	 */
 	public function appendChunk($name, ChunkInterface $value) {
 		if(isset($this->directKeys[$name])) {
@@ -238,6 +249,7 @@ class ResourceHash implements ResourceInterface
 	 * 
 	 * @param ResourceInterface $in 
 	 * @return <self>
+	 * @assert $obj->merge($in) == $in  
 	 */
 	public function merge(ResourceInterface $in) {
 		$in->rewind();
@@ -315,6 +327,7 @@ class ResourceHash implements ResourceInterface
      * next
      * 
      * @return <self>
+	 * this need a good unit test
      */
     function next() {
 		$stay=true;
@@ -422,6 +435,12 @@ class ResourceHash implements ResourceInterface
 		return $list;
 	}}}	
 
+	/**
+	 * get_meta ~ I added this to reduce curve on updating files
+	 * 
+	 * @DEPRECATED
+	 * @return <self>
+	 */
 	function get_meta() {
 		return @$this->chunks[ $this->directKeys['pagemeta'] ];
 	}

@@ -96,6 +96,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return <new object>
 	 */
 	function unpack($data, $name, $filter) {
+		// setting fail, so if error else where, it will crash
 		return (new self($name, $data, "FAIL!", $filter))
 				->setPHP($this->compile)
 				->setConf($this->conf)
@@ -112,7 +113,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	function validate() {
 		$this->data=trim($this->data);
 		if(!function_exists($this->data)) {
-			$this->data=$this->compile->safeFunc($this->data);
+			$this->data=$this->compile->safeFunc($this->data, $this->name);
 		}
  		return true;
 	}		
@@ -125,14 +126,17 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return mixed, the unpacked chunk
 	 */
 	function getData() {
-		if(!($this->name===self::DO_GET || $this->name===self::DO_POST)) {
+var_dump(__METHOD__, $this->name);
+		if(!($this->type===self::DO_GET || $this->type===self::DO_POST)) {
+var_dump("SSSSSSSS ".$this->name);
 			try {
 				$t=$this->data;
 				$fake1=[];
 				$fake2=new \StdClass();
 //	the params are:
-// public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page') {
-				return $t($this->log, $fake1, $fake2, $this->conf, $this->resrc);
+// public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page')
+				$ret= $t($this->log, $fake1, $fake2, $this->conf, $this->resrc);
+				return $ret;
 			} catch(\Exception $e ) {
 				throw new BadResourceException("ERROR in ".$this->name." ".$e->getMessage());
 			}

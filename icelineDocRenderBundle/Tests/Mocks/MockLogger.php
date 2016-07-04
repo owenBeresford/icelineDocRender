@@ -19,9 +19,9 @@ class MockLogger implements LoggerInterface
 {
 	public function emerg($message, array $context = array()) {
 		if($context!=[]) {
-			echo($message.' '. var_export($context, true));
+			echo("LOG SAID: ".$message.' '. var_export($context, true));
 		} else {
-			echo("$message\n");
+			echo("LOG SAID: $message\n");
 		}
 		fflush(STDOUT);
 	}

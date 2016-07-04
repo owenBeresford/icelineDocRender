@@ -66,7 +66,7 @@ class PHPExecService
 	 * @assert $obj->safeFunc("return false") == Exception
 	 * @assert $obj->safeFunc("throw new \Exception();") == callable
 	 */
-	public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page') {
+	public function safeFunc($raw, $name, $args='$log, &$request, &$ses, $conf, &$page') {
 		try {
 			error_reporting(0);
 #  i have to wipe here, due to bugs in imported libaries 
@@ -95,8 +95,8 @@ class PHPExecService
 		}
 		if(!is_callable($func)) {
 			$GLOBALS['error']		= 1;
-			$this->log->info( "Internal error: page '".$this->name."' crashed on compilation, please contact an administrator.");
-			throw new BadResourceException("Internal error: page '".$this->name."' crashed on compilation, please contact an administrator.");
+			$this->log->info( "Internal error: page '".$name."' crashed on compilation, please contact an administrator.");
+			throw new BadResourceException("Internal error: page '".$name."' crashed on compilation, please contact an administrator.");
 		}
 		return $func;
 	}
