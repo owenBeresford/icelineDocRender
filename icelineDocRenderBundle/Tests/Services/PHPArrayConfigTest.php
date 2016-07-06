@@ -66,8 +66,8 @@ class PHPArrayConfigTest extends \PHPUnit_Framework_TestCase
     public function testGet3()
     {
         $this->assertEquals(
-            array,
-            $this->obj->get('system_resources')
+            'array',
+            gettype($this->obj->get('system_resources'))
         );
     }
 
@@ -109,6 +109,7 @@ class PHPArrayConfigTest extends \PHPUnit_Framework_TestCase
             $this->obj->get( ['master_browser_barrier', 'uid', 'type'])
         );
     }
+
 
     /**
      * @covers icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig::load

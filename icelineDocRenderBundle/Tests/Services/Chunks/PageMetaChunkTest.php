@@ -22,7 +22,7 @@ class PageMetaChunkTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->obj = new PageMetaChunk("fred", "data", "pagemeta", false);
-		$cfile=__DIR__.'/../../Resources/config/site_config.php';
+		$cfile=__DIR__.'/../../../Resources/config/site_config.php';
 		$conf=new PHPArrayConfig($cfile);
 		$this->obj->setConf($conf);
     }

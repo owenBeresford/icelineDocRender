@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit stopOnError="false" bootstrap="./../../../app/autoload.php" colors="true" >
+<testsuite name='ielineDocRender Tests'>
+    <directory suffix=".php">./Tests/</directory>
+</testsuite>
+</phpunit>

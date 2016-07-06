@@ -46,7 +46,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->transform($in) == 'the class'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::transform
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::transform
      */
     public function testTransform()
     {
@@ -61,7 +61,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->extractMap("tst test [[test001]] test") == "the class".
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::extractMap
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::extractMap
      */
     public function testExtractMap()
     {
@@ -74,7 +74,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->mapValues(['test001'], $in, $out) == 'array'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::mapValues
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::mapValues
      */
     public function testMapValues()
     {
@@ -90,7 +90,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->mapValues(['PANDA STYLE'], $in, $out) == 'array'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::mapValues
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::mapValues
      */
     public function testMapValues2()
     {
@@ -105,7 +105,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->applyMap(['test001'=>"dgdgdfgdf"], $out) == 'array'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::applyMap
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::applyMap
      */
     public function testApplyMap()
     {
@@ -117,7 +117,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::setStaticsFactory
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::setStaticsFactory
      * @todo   Implement testSetStaticsFactory().
      */
     public function testSetStaticsFactory()
@@ -128,7 +128,7 @@ class TemplateMergeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::render
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::render
      * @todo   Implement testRender().
      */
     public function testRender()

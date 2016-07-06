@@ -23,7 +23,8 @@ class WikiFactoryTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
 		$cfile=__DIR__.'/../../Resources/config/site_config.php';
-        $this->obj = new WikiFactory(new PHPArrayConfig($cfile)) ;
+        $this->obj = new WikiFactory();
+		$this->obj->setConfig(new PHPArrayConfig($cfile)) ;
 		$this->obj->setPageCollection(new MockPageCollection());
     }
 
@@ -65,7 +66,7 @@ class WikiFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetPageCollection()
     {
-        $this->markTestiSkipped(
+        $this->markTestSkipped(
             'This test has not been implemented yet.'
         );
     }

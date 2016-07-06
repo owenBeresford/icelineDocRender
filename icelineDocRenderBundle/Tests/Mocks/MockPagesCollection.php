@@ -49,7 +49,7 @@ class MockPageCollection implements PagesCollectionInterface
 	 * @return string
 	 */
 	public function toURL($name) {
-		return $name;
+		return "$name";
 	}
 
 	/**
@@ -59,7 +59,7 @@ class MockPageCollection implements PagesCollectionInterface
 	 * @return string
 	 */
 	public function toFile($name) {
-		return $name;
+		return "/var/www/sf2-test4/src/icelineLtd/icelineDocRenderBundle/Resources/pages/$name.wiki";
 	}
 	
 	/**

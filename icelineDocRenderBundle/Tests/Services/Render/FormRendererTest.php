@@ -1,10 +1,10 @@
 <?php
-namespace icelineLtd\icelineLtdDocRenderBundle\Tests\Services\Render;
+namespace icelineLtd\icelineDocRenderBundle\Tests\Services\Render;
 
-use icelineLtd\icelineLtdDocRenderBundle\Services\HTMLise;
-use icelineLtd\icelineLtdDocRenderBundle\Services\Render\FormRenderer;
-use icelineLtd\icelineLtdDocRenderBundle\Services\PHPArrayConfig;
-use icelineLtd\icelineLtdDocRenderBundle\Tests\Fixture\ChunkMaker;
+use icelineLtd\icelineDocRenderBundle\Services\HTMLise;
+use icelineLtd\icelineDocRenderBundle\Services\Render\FormRenderer;
+use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig;
+use icelineLtd\icelineDocRenderBundle\Tests\Fixture\ChunkMaker;
 $_SERVER['SERVER_ADDR']='127.0.0.1';
 
 
@@ -13,18 +13,18 @@ $_SERVER['SERVER_ADDR']='127.0.0.1';
  */
 class FormRendererTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var FormRenderer
-     */
-    protected $obj;
+	/**
+	 * @var FormRenderer
+	 */
+	protected $obj;
 	protected $maker;
 
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
+	/**
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 */
+	protected function setUp()
+	{
 		$cfile=__DIR__.'/../../../Resources/config/site_config.php';
 		$c=new PHPArrayConfig($cfile);
         $this->obj = new FormRenderer();
@@ -44,7 +44,7 @@ class FormRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->render($in) == 'string'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Render\FormRenderer::render
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Render\FormRenderer::render
      */
     public function testRender1()
     {

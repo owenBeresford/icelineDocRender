@@ -4,6 +4,7 @@ namespace icelineLtd\icelineDocRenderBundle\Tests\Fixture;
 
 use icelineLtd\icelineDocRenderBundle\Services\ResourceHash;
 use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk;
 use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 
 /**
@@ -33,7 +34,7 @@ class ChunkMaker
 	array( 'type'=>'button', 'class'=>'imperialBtn', 'value'=>'Add comment', 'id'=>'btnSubmit'),
 										);");
 
-		$t= new ProgrammaticChunk('form01', $f, 'form');
+		$t= new ParseAsPHP5Chunk('form01', $f, 'form');
 		return $t;
 	}
 
@@ -50,7 +51,7 @@ class ChunkMaker
 	array('value'=>'', 'type'=>'text', 'class'=>'required',  'id'=>'comment', 'display'=>'Your comment', ),
 										);");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAsPHP5Chunk('form01', $f, 'form');
 	}
 
 	function getTable001() {
@@ -61,7 +62,7 @@ class ChunkMaker
 	1 =>array('name'=>'landrover', 'value'=>'green'),
 );");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAPHChunk('form01', $f, 'form');
 	}
 
 	function getTable002() {
@@ -71,7 +72,7 @@ class ChunkMaker
 	1 =>array('name'=>'landrover', 'value'=>'green'),
 );");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAsPHP5Chunk('form01', $f, 'form');
 	}
 
 	function getTable003() {
@@ -82,7 +83,7 @@ class ChunkMaker
 	1 =>array('name'=>'landrover', 'value'=>'green'),
 );");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAsPHP5Chunk('form01', $f, 'form');
 	}
 
 	function getTablist001() {
@@ -125,7 +126,7 @@ return array(
 	'render-local' =>1,
 		 );");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAsPHP5Chunk('form01', $f, 'form');
 	}
 
 	function getTablist002() {
@@ -166,7 +167,7 @@ return array(
 	'render-local' =>1,
 				);");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAsPHP5Chunk('form01', $f, 'form');
 	}
 
 	function getTablist003() {
@@ -209,7 +210,7 @@ return array(
 
 				);");
 
-		return new ProgrammaticChunk('form01', $f, 'form');
+		return new ParseAsPHP5Chunk('form01', $f, 'form');
 	}
 
 

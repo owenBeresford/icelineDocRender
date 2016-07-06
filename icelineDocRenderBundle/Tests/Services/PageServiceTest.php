@@ -3,6 +3,7 @@ namespace icelineLtd\icelineDocRenderBundle\Tests\Services;
 
 use icelineLtd\icelineDocRenderBundle\Services\PageService;
 use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig;
+ use icelineLtd\icelineDocRenderBundle\Services\PageCollection;
 use icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory;
 use icelineLtd\icelineDocRenderBundle\Services\WikiFactory;
 use icelineLtd\icelineDocRenderBundle\Tests\Mocks\MockLogger;
@@ -15,6 +16,7 @@ use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
 use icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateMerge;
+use icelineLtd\icelineDocRenderBundle\Services\Transform\FrameTransform;
 use icelineLtd\icelineDocRenderBundle\Services\Render\NoTransformRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Render\JSRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Render\CSSRenderer;
@@ -44,24 +46,28 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
 		$cfile=__DIR__.'/../../Resources/config/site_config.php';
 		$conf=new PHPArrayConfig($cfile);
         $this->obj = new PageService();
+		$pages=new PageCollection($conf);
+		$pages->setResource($this->maker->makeUsableResource($conf));
+
 		$this->obj->setConfig($conf);
 		$this->obj->setLog(new MockLogger());
 		$this->obj->setResource($this->maker->makeUsableResource($conf));
+		$this->obj->setTransform( (new FrameTransform())->setPageCollection($pages));
 
         $tmp = new TemplateRenderer();
 		$tmp->setWorker(new NoTransformRenderer());
 		$tmp->setWorker(new CSSRenderer());
 		$tmp->setWorker(new JSRenderer());
-		$w=(new WikiFactory( ))->setConfig($conf)->setPageCollection(new MockPageCollection($conf));
+		$w=(new WikiFactory( ))->setConfig($conf)->setPageCollection($pages);
 		$tmp->setWorker((new WikiRenderer("xhtml" ))->setWiki($w));
 		$this->obj->setTransform($tmp);
 
-		// add TemplateMerge
 		$tmp=new TemplateMerge();
 		$static=new StaticValuesFactory($conf) ;
-		$static->setPageCollection(new MockPageCollection($conf));
+		$static->setPageCollection($pages);
 		$tmp->setStaticsFactory( $static);
 		$this->obj->setTransform($tmp);
+
 		
 // ....
 		$this->obj->setDebug(false);
@@ -80,7 +86,8 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
      *
      * @covers icelineLtd\icelineDocRenderBundle\Services\PageService::render
      */
-    public function testRender()
+  
+	public function testRender()
     {
 		$page="home-test";
 		$page=__DIR__."/../../Resources/pages/$page.wiki";
@@ -111,7 +118,6 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testRender3()
     {
-// to make this test work, inject FrameTransform in the setup() 
 		$page="home";
 		$page=__DIR__."/../../Resources/pages/$page.wiki";
 		$html=$this->obj->render($page);

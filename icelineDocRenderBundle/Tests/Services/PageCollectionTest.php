@@ -3,6 +3,8 @@ namespace icelineLtd\icelineDocRenderBundle\Tests\Services;
 
 use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig;
 use icelineLtd\icelineDocRenderBundle\Services\PageCollection;
+use icelineLtd\icelineDocRenderBundle\Services\ResourceHash;
+use icelineLtd\icelineDocRenderBundle\Tests\Fixture\ResourceMaker;
 $_SERVER['SERVER_ADDR']='127.0.0.1';
 
 /**
@@ -14,6 +16,7 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      * @var PageCollection
      */
     protected $obj;
+	protected $maker;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -21,8 +24,11 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+		$this->maker=new ResourceMaker();
+		$conf=new PHPArrayConfig('Resources/config/site_config.php');
 
-        $this->obj = new PageCollection(new PHPArrayConfig('Resources/config/site_config.php'));
+        $this->obj = new PageCollection($conf);
+		$this->obj->setResource($this->maker->makeUsableResource($conf));
     }
 
     /**
@@ -38,11 +44,8 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      * @todo   Implement testToURL().
      */
     public function testToURL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+    { // really dom't want to read the config file, but cannot guess the URL without doing this 
+		$this->assertEquals('string', gettype($this->obj->toURL('home')));
     }
 
     /**
@@ -51,10 +54,9 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testToFile()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+		$this->assertEquals('string', gettype($this->obj->toFile('home')));
+		$this->assertTrue( is_file($this->obj->toFile('home')));
+
     }
 
     /**
@@ -63,10 +65,8 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testAll()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+
+		$this->assertEquals('array', gettype($this->obj->all()));
     }
 
     /**
@@ -75,10 +75,11 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResource()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+		$t=$this->obj->getResource('home');
+
+		$this->assertEquals('object', gettype($t));
+		$this->assertEquals('icelineLtd\icelineDocRenderBundle\Services\ResourceHash', get_class($t));
+		
     }
 
     /**
@@ -87,9 +88,8 @@ class PageCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testExists()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+		$this->assertTrue( $this->obj->exists('home'));
+		$this->assertFalse( $this->obj->exists('PANDA!'));
+		
     }
 }

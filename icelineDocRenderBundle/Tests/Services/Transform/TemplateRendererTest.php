@@ -43,7 +43,7 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * Generated from @assert $obj->setWorker(new X) == 'the class'.
      *
-     * @covers icelineLtd\icelineLtdDocRenderBundle\Services\Transform\TemplateRenderer::setWorkers
+     * @covers icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer::setWorkers
      */
     public function testSetWorkers()
     {

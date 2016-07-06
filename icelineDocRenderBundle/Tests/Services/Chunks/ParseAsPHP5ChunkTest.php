@@ -51,6 +51,7 @@ class ParseAsPHP5ChunkTest extends \PHPUnit_Framework_TestCase
     public function testUnpack()
     {
 		$ret=$this->obj->unpack( "\nreturn 'house';\n\n",'f2', 'do_get', false);
+		$ret->setFormat('do_get');
 		$this->assertEquals(get_class($this->obj), get_class($ret) );
 //		$this->assertTrue($ret->getData());
 // cant exec before validate... 
@@ -64,9 +65,10 @@ class ParseAsPHP5ChunkTest extends \PHPUnit_Framework_TestCase
     {
 // for tests on safe_eval, pls see PHPExecService
 		$ret=$this->obj->unpack("\nreturn 'house';\n\n", 'f3', 'do_get', false);
+		$ret->setFormat('do_get');
 		$this->assertEquals(get_class($this->obj), get_class($ret) );
  		$this->assertTrue($ret->validate());   	
-		$this->assertTrue($ret->getData()=='house');
+		$this->assertTrue(is_callable($ret->getData()));
     }
 
     public function testValidate02()
@@ -74,17 +76,20 @@ class ParseAsPHP5ChunkTest extends \PHPUnit_Framework_TestCase
 // for tests on safe_eval, pls see PHPExecService
 		$this->setExpectedException('icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException');
 		$ret=$this->obj->unpack("\nreturn 'house'\n\n", 'f4', 'do_get', false);
+		$ret->setFormat('do_get');
 		$this->assertEquals(get_class($this->obj), get_class($ret) );
  		$this->assertFalse($ret->validate());   	
-		$this->assertFalse($ret->getData()=='house');
+		$this->assertTrue(is_callable($ret->getData()));
     }
 
     public function testValidate03()
     {
 // for tests on safe_eval, pls see PHPExecService
 		$ret=$this->obj->unpack("\nreturn 'house';\n\n", 'f5', 'php', false);
+		$ret->setFormat('php');
 		$this->assertEquals(get_class($this->obj), get_class($ret) );
  		$this->assertTrue($ret->validate());   	
+		$this->assertFalse(is_callable($ret->getData()));
 		$this->assertTrue($ret->getData()=='house');
     }
 
@@ -98,6 +103,7 @@ class ParseAsPHP5ChunkTest extends \PHPUnit_Framework_TestCase
     {
 // for tests on safe_eval, pls see PHPExecService
 		$ret=$this->obj->unpack("\nreturn 'house';\n\n", 'f6', 'php', false);
+		$ret->setFormat('php');
 		$this->assertEquals(get_class($this->obj), get_class($ret) );
  		$this->assertTrue($ret->validate());   	
 		$this->assertSame('house', $ret->getData());
@@ -108,10 +114,10 @@ class ParseAsPHP5ChunkTest extends \PHPUnit_Framework_TestCase
     {
 // for tests on safe_eval, pls see PHPExecService
 		$ret=$this->obj->unpack("\nreturn 'house';\n\n", 'f7', 'do_get', false);
+		$ret->setFormat('do_get');
 		$this->assertEquals(get_class($this->obj), get_class($ret) );
  		$this->assertTrue($ret->validate());   	
 
-var_dump(__METHOD__,'EEEEEEEEEEEEEEEEEEe', $ret->getData());
 		$this->assertTrue( is_callable($ret->getData()));
  
     }

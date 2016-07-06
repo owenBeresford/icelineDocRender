@@ -24,10 +24,8 @@ class ResourceHashTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->obj = new ResourceHash();
-        $this->obj->setWorker(new PlainChunk("ch".__LINE__, "gdgdgdf", "html") );
-        $this->obj->setWorker((new PageMetaChunk("ch".__LINE__, "gdgdgdf", "html"))->setConf(new PHPArrayConfig(__DIR__."/../../Resources/config/site_config.php") ) );
-
+		$maker=new ResourceMaker(); 
+        $this->obj = $maker->makeUsableResource( new PHPArrayConfig('Resources/config/site_config.php'));
    }
 
     /**

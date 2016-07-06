@@ -126,9 +126,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return mixed, the unpacked chunk
 	 */
 	function getData() {
-var_dump(__METHOD__, $this->name);
 		if(!($this->type===self::DO_GET || $this->type===self::DO_POST)) {
-var_dump("SSSSSSSS ".$this->name);
 			try {
 				$t=$this->data;
 				$fake1=[];
