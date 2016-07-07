@@ -6,8 +6,7 @@ Objectives
 * Add caching layer for pages
 * Get performance benefits from using newer PHP & a better framework.  Get more features from Symfony 
 * Be able to use things like DI as its now possible 
-* 
-
+* .
 * (q) why do I have iceline in the name twice? it looks silly.
 *     (a) the first renderer was called 'iceline', its the iceline file format document renderer.
 * (q) do you have something against DB?
@@ -15,7 +14,7 @@ Objectives
 *
 
 # Dependancies
+* this project isn't completed yet, I need to write out all the project admin things
 * Symfony (Will update this)
 * text_wiki https://packagist.org/packages/mrcore/text_wiki 
 * Swiftemailer is part of Symfony 
- 
