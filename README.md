@@ -9,12 +9,15 @@ Objectives
 * .
 * (q) why do I have iceline in the name twice? it looks silly.
 *     (a) the first renderer was called 'iceline', its the iceline file format document renderer.
-* (q) do you have something against DB?
+* (q) Do I have something against twig?
+*     (a) No, but its designed for HTML, not text.  Iceline is for large articles of text.
+* (q) Do you have something against DB?
 *     (a) my current use case doesn't have concurrent edits, so a DBMS is unneeded.  NB, It wouldn't be much effort to map ResourceHash->setContentFromFile to a MongoDB document read 
 *
 
 # Dependancies
 * this project isn't completed yet, I need to write out all the project admin things
 * Symfony (Will update this)
+* This writes to app/cache/cache during operation (need to make this)
 * text_wiki https://packagist.org/packages/mrcore/text_wiki 
 * Swiftemailer is part of Symfony 
