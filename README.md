@@ -10,7 +10,7 @@ Objectives
 * (q) why do I have iceline in the name twice? it looks silly.
 *     (a) the first renderer was called 'iceline', its the iceline file format document renderer.
 * (q) Do I have something against twig?
-*     (a) No, but its designed for HTML, not text.  Iceline is for large articles of text.
+*     (a) No, but its designed for HTML, not text.  Iceline is for large articles of text.  If someone wants to port my >200 article into twig they may (open commons licence), but I think this is faster/ less BORING/ more useful side effects 
 * (q) Do you have something against DB?
 *     (a) my current use case doesn't have concurrent edits, so a DBMS is unneeded.  NB, It wouldn't be much effort to map ResourceHash->setContentFromFile to a MongoDB document read 
 *
