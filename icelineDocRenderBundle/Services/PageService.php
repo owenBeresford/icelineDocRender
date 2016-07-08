@@ -27,6 +27,8 @@ class PageService implements PageServiceInterface
 	protected $whine;
 	protected $conf;
 	protected $log;	
+	protected $cache;
+	protected $caching;
 	
 	/**
 	 * setDebug
@@ -58,6 +60,12 @@ class PageService implements PageServiceInterface
 	 */
 	function setTransform(TemplateRendererInterface $tri) {
 		$this->impl[]=$tri;
+		return $this;
+	}
+
+	function setCache(CacheInterface $ci) {
+		$this->cache=$ci;
+		$this->caching=intval($ci->get(['site_settings', 'enable_cache']));
 		return $this;
 	}
 
@@ -106,17 +114,25 @@ class PageService implements PageServiceInterface
 	 */
 	public function render($page) {
 		try {
-			$this->resrc->setContentFromFile($page);
-			for($i=0, $LENGTH=count($this->impl); $i<$LENGTH; $i++) {
-				$this->resrc=$this->impl[$i]->transform($this->resrc);
-			}
-
-			$t=$this->resrc->getChunk(ChunkInterface::ROOTNAME);
-			if(null===$t) {
-				$this->log->info("INFO Can't find root element in $page ");
-				return 500;
+			if($this->caching && $this->cache->hit($page)) {
+				return $this->cache->entry();
 			} else {
-				return $t->getData();
+				$this->resrc->setContentFromFile($page);
+				for($i=0, $LENGTH=count($this->impl); $i<$LENGTH; $i++) {
+					$this->resrc=$this->impl[$i]->transform($this->resrc);
+				}
+
+				$t=$this->resrc->getChunk(ChunkInterface::ROOTNAME);
+				if(null===$t) {
+					$this->log->info("INFO Can't find root element in $page ");
+					return 500;
+				} else {
+					// dont cache pages requiring param data... 
+					if($this->caching) {
+						$this->cache->put($page, $t->getData());
+					}
+					return $t->getData();
+				}
 			}
 			
 		} catch(BadResourceException $bre) {
@@ -129,7 +145,6 @@ class PageService implements PageServiceInterface
 				}
 
 				$this->whine=true;
-$this->log->info(__CLASS__.'#'.__LINE__);
 				return $this->render($this->page->toFile($this->conf->get(['site_settings', 'error_template'])));
 			}
 		}

@@ -134,6 +134,10 @@ services:
             - [ setSession, ["@session"]]
             - [ setPageCollection, ["@pagesCollection"]]
 
+    cache:
+        class: icelineLtd\icelineDocRenderBundle\Services\Cache
+        arguments: ["@config"]
+
     pagesCollection:
         class: icelineLtd\icelineDocRenderBundle\Services\PageCollection
         arguments: [ "@config" ]
