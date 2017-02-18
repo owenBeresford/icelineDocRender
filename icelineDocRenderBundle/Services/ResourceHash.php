@@ -5,6 +5,7 @@ namespace icelineLtd\icelineDocRenderBundle\Services;
 use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 use icelineLtd\icelineDocRenderBundle\ChunkInterface;
 use icelineLtd\icelineDocRenderBundle\Services\Chunks\ProgrammaticChunk;
+use icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk;
 use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface;
 use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 use icelineLtd\icelineDocRenderBundle\Exceptions\AddFileException;
@@ -51,6 +52,9 @@ class ResourceHash implements ResourceInterface
 
 		foreach($this->impl as $i=>$v) {
 			$this->impl[$i]=clone $this->impl[$i];
+			if(get_class($this->impl[$i]) == '\icelineLtd\icelineDocRenderBundle\Services\Chunks\ParseAsPHP5Chunk' ) {
+				$this->impl[$i]->setResource($this);
+			}
 		}
 		if($this->pages) {
 			$this->pages=clone $this->pages;
@@ -111,6 +115,7 @@ class ResourceHash implements ResourceInterface
 	public function setContent($data) {
 		$list=$this->_chunkify($data);
 		$this->chunks=[];
+		$this->directKeys=[];
 		$LENGTH=count($list);
 		for($i=0; $i<$LENGTH; $i++) {
 			if(isset($this->impl[ $list[$i]['type'] ])) {
@@ -148,7 +153,7 @@ class ResourceHash implements ResourceInterface
 	 * @param string $name 
 	 * @return ChunkInterface || null
 	 */
-	public function getChunk($name) {
+	public function getChunk($name):?ChunkInterface {
 		if(isset($this->directKeys[$name])) {
 			return $this->chunks[ $this->directKeys[$name] ]; 
 		}
@@ -156,6 +161,7 @@ class ResourceHash implements ResourceInterface
 			return $this->chunks[$name];
 		}
 		return null;
+//		throw new BadResourceException("Unknown chunk requested $name ");
 	}
 
 	/**
@@ -277,7 +283,7 @@ class ResourceHash implements ResourceInterface
 	 * 
 	 * @return an array of chunks
 	 */
-	public function getAllChunks() {
+	public function getAllChunks():array {
 		return $this->chunks;
 	}
 

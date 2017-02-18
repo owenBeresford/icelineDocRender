@@ -17,7 +17,7 @@ interface ConfigInterface
 	 * get
 	 * 
 	 * @param array $qry 
-	 * @return <self>
+	 * @return <mixed>
 	 */
 	function get( $qry);
 
@@ -27,5 +27,5 @@ interface ConfigInterface
 	 * @access public
 	 * @return bool
 	 */
-	function populated();	
+	function populated():bool;	
 }

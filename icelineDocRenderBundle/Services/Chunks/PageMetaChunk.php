@@ -39,7 +39,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::PAGE_META];
 	}
 
@@ -49,7 +49,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return <new object>
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		$data=$this->unpack_avps($data, ResourceInterface::MIMIMUM_AVP, false );
 		
 		return (new self($name, $data, self::PAGE_META, $filter))->setConf($this->conf);
@@ -63,7 +63,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @return bool
 	 * Cant write ASSERTS for this method
 	 */
-	function validate() {
+	function validate():bool {
 		$mandatory_header			=[ 'docversion', 'accessgroup', 'method', 'codeversion', ];	
 		foreach($mandatory_header as $v) {
 			if(!array_key_exists($v, $this->data)) {
@@ -135,7 +135,7 @@ class PageMetaChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @throws BadResourceException
 	 * @return array of data
 	 */
-	private function unpack_avps($meta, $low, $distinct=true) {
+	private function unpack_avps($meta, $low, $distinct=true):array {
 		$avps							= [];
 		$avpsraw						= explode(ResourceInterface::LIST_SPLIT, $meta);
 		if(!is_array($avpsraw) || count($avpsraw)<$low) {			

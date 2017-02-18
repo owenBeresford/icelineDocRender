@@ -44,7 +44,7 @@ class Cache implements CacheInterface
 	 * @assert $obj->hit('PANDA') == false
 	 * @assert $obj->hit('home') == true
 	 */
-	function hit($in) {
+	function hit($in):bool {
 		$file=basename($in, '.wiki');
 		$this->page=$this->cache.$file.".html";		
 		if(!is_file($this->page)) {
@@ -63,7 +63,7 @@ class Cache implements CacheInterface
 	 * 
 	 * @return <self>
 	 */
-	function entry() {
+	function entry():string {
 		return file_get_contents($this->page);
 	}
 
@@ -74,7 +74,7 @@ class Cache implements CacheInterface
 	 * @param string $value 
 	 * @return <self>
 	 */
-	function put($name, $value) {
+	function put($name, $value):int {
 		$name=basename($name, 'wiki');
 		return file_put_contents($this->cache.$name.".html", $value);
 	}

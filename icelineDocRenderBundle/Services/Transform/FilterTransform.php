@@ -55,7 +55,7 @@ class FilterTransform implements TemplateRendererInterface
 	 * @assert $obj->transform($in) == 'icelineLtd\icelineDocRenderBundle\ResourceInterface'
 	  Just one test for the iterator
 	 */
-	public function transform(ResourceInterface $ri) {
+	public function transform(ResourceInterface $ri):ResourceInterface {
 		$ri->rewind();
 		while($ri->valid()) {
 			$t=$ri->current();
@@ -111,7 +111,7 @@ class FilterTransform implements TemplateRendererInterface
 			throw new BadResourceException("Unknown filter ".$ci->getFilter()." on chunk ".$ci->getName());
 		}
 		return $ci;
-	}
+	} 
 
 }	
 # vi: ts=4

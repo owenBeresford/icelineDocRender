@@ -67,7 +67,7 @@ class PHPArrayConfig implements ConfigInterface
 	 * @access public
 	 * @return void
 	 */
-	public function populated() {{{
+	public function populated():bool {{{
 		return count($this->hash) >0;
 	}}}	
 	

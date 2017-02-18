@@ -85,7 +85,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::PHP5, self::TABLE, self::DO_GET, self::DO_POST, self::TABLIST, self::FORM];
 	}
 
@@ -95,13 +95,14 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return <new object>
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		// setting fail, so if error else where, it will crash
-		return (new self($name, $data, "FAIL!", $filter))
+		$t= (new self($name, $data, "FAIL!", $filter))
 				->setPHP($this->compile)
 				->setConf($this->conf)
 				->setLog($this->log)
 				->setResource($this->resrc);
+		return $t;
 	}
 
 	/**
@@ -110,7 +111,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 	 * @throws BadResourceException 
 	 * @return bool
 	 */
-	function validate() {
+	function validate():bool {
 		$this->data=trim($this->data);
 		if(!function_exists($this->data)) {
 			$this->data=$this->compile->safeFunc($this->data, $this->name);
@@ -131,6 +132,7 @@ class ParseAsPHP5Chunk extends ProgrammaticChunk implements ChunkInterface
 				$t=$this->data;
 				$fake1=[];
 				$fake2=new \StdClass();
+
 //	the params are:
 // public function safeFunc($raw, $args='$log, &$request, &$ses, $conf, &$page')
 				$ret= $t($this->log, $fake1, $fake2, $this->conf, $this->resrc);

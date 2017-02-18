@@ -53,7 +53,7 @@ class FrameTransform implements TemplateRendererInterface
 	 * page without frame meta
 	 * page with invalid frame 
 	 */
-	public function transform(ResourceInterface $in) {
+	public function transform(ResourceInterface $in):ResourceInterface {
 		$meta=$in->getChunk(ChunkInterface::PAGE_META);
 		$frame=$meta->getAttribute(ChunkInterface::FRAME);
 		if($frame) {

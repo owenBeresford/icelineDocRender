@@ -24,8 +24,8 @@ class CommentChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
-		return self::COMMENT;
+	static function getChunkType():array {
+		return [self::COMMENT];
 	}
 
 	/**
@@ -34,7 +34,7 @@ class CommentChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return bool
 	 */
-	function unpack($data, $name, $filter) {		
+	function unpack($data, $name, $filter):ChunkInterface {		
 		return new self($name, $data, self::getChunkType(), $filter);
 	}
 
@@ -43,7 +43,7 @@ class CommentChunk extends ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return <self>
 	 */
-	function validate() {
+	function validate():bool {
 		return true;
 	}
 	

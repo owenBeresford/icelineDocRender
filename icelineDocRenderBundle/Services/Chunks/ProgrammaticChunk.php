@@ -29,8 +29,8 @@ class ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
-		return null;
+	static function getChunkType():array {
+		return [];
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return bool
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		throw new NoImplException("This is stupid.");
 	}
 
@@ -65,7 +65,7 @@ class ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return bool
 	 */
-	function validate() {
+	function validate():bool {
 		throw new NoImplException("This is stupid.");		
 	}
 
@@ -74,7 +74,7 @@ class ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return string of name
 	 */
-	function getName() {
+	function getName():string {
 		return $this->name;		
 	}
 

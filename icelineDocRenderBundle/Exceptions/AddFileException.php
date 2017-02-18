@@ -31,7 +31,7 @@ class AddFileException extends \Exception
 	 * 
 	 * @return string
 	 */
-	function getResourceFile(){
+	function getResourceFile():string {
 		return $this->file;
 	}
 }

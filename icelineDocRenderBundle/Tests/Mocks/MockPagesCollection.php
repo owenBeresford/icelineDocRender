@@ -8,6 +8,7 @@ use icelineLtd\icelineDocRenderBundle\Services\Transform\TemplateRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Render\JSRenderer;
 use icelineLtd\icelineDocRenderBundle\Services\Render\NoTransformRenderer;
 use icelineLtd\icelineDocRenderBundle\Tests\Fixture\ResourceMaker;
+use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 
 /**
  * 3min to write, faster than using a Mock library
@@ -48,7 +49,7 @@ class MockPageCollection implements PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return string
 	 */
-	public function toURL($name) {
+	public function toURL($name):string {
 		return "$name";
 	}
 
@@ -58,7 +59,7 @@ class MockPageCollection implements PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return string
 	 */
-	public function toFile($name) {
+	public function toFile($name):string {
 		return "/var/www/sf2-test4/src/icelineLtd/icelineDocRenderBundle/Resources/pages/$name.wiki";
 	}
 	
@@ -67,7 +68,7 @@ class MockPageCollection implements PagesCollectionInterface
 	 * 
 	 * @return array of file names
 	 */
-	function all() {
+	function all():array {
 		return $this->pages;
 	}
 
@@ -77,7 +78,7 @@ class MockPageCollection implements PagesCollectionInterface
 	 * @param string $name 
 	 * @return bool
 	 */
-	public function exists($name) {
+	public function exists($name):bool {
 		return in_array($name, $this->pages);
 	}
 
@@ -88,14 +89,14 @@ class MockPageCollection implements PagesCollectionInterface
 	 * @access public
 	 * @return <self>
 	 */
-	public function getResource($name=null) {
+	public function getResource($name=null):ResourceInterface {
 		if(method_exists($this->maker, $name)) {
 			return $this->maker->$name();
 		}
 		return new ResourceHash();
 	}
 
-	public function getRenderer() {
+	public function getRenderer():TemplateRendererInterface {
 		// add attached classes
 		$t= new TemplateRenderer();
 		$t->setWorker(new JSRenderer());

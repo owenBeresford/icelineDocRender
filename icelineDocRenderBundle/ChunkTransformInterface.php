@@ -18,7 +18,7 @@ interface ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType();
+	static function getChunkType():array;
 
 	/**
 	 * render
@@ -26,7 +26,7 @@ interface ChunkTransformInterface
 	 * @param ChunkInterface $ci 
 	 * @return string
 	 */
-	function render(ChunkInterface $ci);
+	function render(ChunkInterface $ci):string;
 	
 	/**
 	 * setFormat

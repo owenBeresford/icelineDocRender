@@ -24,7 +24,7 @@ interface TemplateRendererInterface
 	 * @access public
 	 * @return <self>
 	 */
-	function transform(ResourceInterface $ri);
+	function transform(ResourceInterface $ri):ResourceInterface ;
 	
 	/**
 	 * render

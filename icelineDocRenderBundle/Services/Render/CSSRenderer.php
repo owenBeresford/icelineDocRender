@@ -28,7 +28,7 @@ class CSSRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [ChunkInterface::CSS,];
  	}
 
@@ -50,7 +50,7 @@ class CSSRenderer implements ChunkTransformInterface
 	 * @param ChunkInterface $ci 
 	 * @return string
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$text=$ci->getData();
 // strip the type attrib when happy there are no old browsers, its not needed for HTML5		
 		return "<style type=\"text/css\">\n$text\n</style>";

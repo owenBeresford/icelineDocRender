@@ -3,7 +3,7 @@ namespace icelineLtd\icelineDocRenderBundle\Tests\Services;
 
 use icelineLtd\icelineDocRenderBundle\Services\PageService;
 use icelineLtd\icelineDocRenderBundle\Services\PHPArrayConfig;
- use icelineLtd\icelineDocRenderBundle\Services\PageCollection;
+use icelineLtd\icelineDocRenderBundle\Services\PageCollection;
 use icelineLtd\icelineDocRenderBundle\Services\StaticValuesFactory;
 use icelineLtd\icelineDocRenderBundle\Services\WikiFactory;
 use icelineLtd\icelineDocRenderBundle\Tests\Mocks\MockLogger;
@@ -67,10 +67,9 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
 		$static->setPageCollection($pages);
 		$tmp->setStaticsFactory( $static);
 		$this->obj->setTransform($tmp);
-
-		
+		$this->obj->setCollection($pages);		
 // ....
-		$this->obj->setDebug(false);
+		$this->obj->setDebug(true);
     }
 
     /**
@@ -86,7 +85,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
      *
      * @covers icelineLtd\icelineDocRenderBundle\Services\PageService::render
      */
-  
+ 
 	public function testRender()
     {
 		$page="home-test";
@@ -115,7 +114,6 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
     public function testRender3()
     {
 		$page="home";
@@ -126,8 +124,6 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(0, preg_match('/\[\[/', $html), "All markers are evaluated");
 		$this->assertEquals(0, preg_match('/\]\]/', $html), "All markers are evaluated");
     }
-
-
 
     /**
      * @covers icelineLtd\icelineDocRenderBundle\Services\PageService::setDebug

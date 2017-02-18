@@ -48,7 +48,7 @@ class WikiRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [ChunkInterface::WIKI];
  	}
 
@@ -64,8 +64,6 @@ class WikiRenderer implements ChunkTransformInterface
 		return $this;
 	}
 
-
-
 	/**
 	 * render
 	 * 
@@ -73,7 +71,7 @@ class WikiRenderer implements ChunkTransformInterface
 	 * @return string
 	 * Cannot semantically unit-test a HTML fix in a unittester.  Needs to be done in a design tool.
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$text=$ci->getData();
 
 		$text						= $this->wiki->transform($text, $this->wikiformat);

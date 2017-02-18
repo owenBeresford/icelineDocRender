@@ -72,7 +72,7 @@ class FormRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	public static function getChunkType() {
+	public static function getChunkType():array {
 		return [ChunkInterface::FORM];
  	}
 
@@ -97,7 +97,7 @@ class FormRenderer implements ChunkTransformInterface
 	 * @assert $obj->render($in) == 'string'	
 	 * duplicate for several forms
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$data=$ci->getData();
 		$display			= $this->conf->get(array('site_settings', 'form-strings'));
 		$style				= array( 'formlabel'=>'h4_label');		

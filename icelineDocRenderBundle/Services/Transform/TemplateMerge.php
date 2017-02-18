@@ -56,7 +56,7 @@ class TemplateMerge implements TemplateRendererInterface
 	 * @assert $obj->transform($in) == 'the class'
 	 * count AVP in each
 	 */
-	public function transform(ResourceInterface $ri) {
+	public function transform(ResourceInterface $ri):ResourceInterface  {
 		$out=$this->static->get($ri);
 		$out->merge($ri);
 		$out->setChunk(ChunkInterface::PAGE_META, $ri->getChunk(ChunkInterface::PAGE_META));
@@ -107,7 +107,7 @@ class TemplateMerge implements TemplateRendererInterface
 	 * @assert $obj->mapValues(['PANDA STYLE'], $in, $out) == 'array'
 	 * for various values in in and out
 	 */
-	function mapValues(array $names, ResourceInterface $in, ResourceInterface $out) {
+	function mapValues(array $names, ResourceInterface $in, ResourceInterface $out):array {
 		$map=[];
 		$out2=[];
 		for($i=0, $LENGTH=count($names); $i<$LENGTH; $i++) {
@@ -121,7 +121,6 @@ class TemplateMerge implements TemplateRendererInterface
 			} else {
 				$out2[$marker]=$map[$marker]->getData();
 				if(is_object($out2[$marker]) /* && !is_callable($map[$marker]) */ ) {
-					var_dump("I don't understand $marker");
 					$out2[$marker]=$out2[$marker]->getData();	
 				}
 			}
@@ -134,10 +133,10 @@ class TemplateMerge implements TemplateRendererInterface
 	 * 
 	 * @param array $map 
 	 * @param ResourceInterface $out 
-	 * @return array
+	 * @return int
 	 * @assert $obj->applyMap(['test001'=>"dgdgdfgdf"], $out) == 'array'
 	 */
-	function applyMap(array $map, ResourceInterface &$out) {
+	function applyMap(array $map, ResourceInterface &$out):int {
 		$keys=array_keys($map);
 		$values=array_values($map);
 		$changes=0;

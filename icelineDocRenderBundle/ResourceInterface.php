@@ -75,7 +75,7 @@ interface ResourceInterface extends \Iterator
 	 * @param string $name 
 	 * @return ChunkInterface
 	 */
-	function getChunk($name);
+	function getChunk($name):?ChunkInterface;
 
 	/**
 	 * setChunk
@@ -93,13 +93,13 @@ interface ResourceInterface extends \Iterator
 	 * 
 	 * @return an array of chunks
 	 */
-	function getAllChunks();
+	function getAllChunks():array;
 
 	/**
 	 * getMetaAttrib ~ if chunk supports attribs, return requested data
 	 * 
 	 * @param string $name 
-	 * @return <self>
+	 * @return <string, probably>
 	 */
 	function getMetaAttrib($name);
 

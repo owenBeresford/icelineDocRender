@@ -23,7 +23,7 @@ class PlainChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::PLAIN, self::HTML, self::CSS, self::JS];
 	}
 
@@ -33,7 +33,7 @@ class PlainChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return bool
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		return new self($name, $data, self::getChunktype(), $filter);
 	}
 
@@ -42,7 +42,7 @@ class PlainChunk extends ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return <self>
 	 */
-	function validate() {
+	function validate():bool {
 		return true;
 	}
 	

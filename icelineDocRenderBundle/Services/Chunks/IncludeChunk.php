@@ -25,7 +25,7 @@ class IncludeChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::PAGE_INCLUDE];
 	}
 
@@ -35,7 +35,7 @@ class IncludeChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return <GetArgsChunk>
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		$data=trim($data);
 		throw new AddFileException("This text isn't used", $data);
 	}
@@ -45,7 +45,7 @@ class IncludeChunk extends ProgrammaticChunk implements ChunkInterface
  	 * 
 	 * @return bool
 	 */
-	function validate() {
+	function validate():bool {
  		return true;
 	}		
 

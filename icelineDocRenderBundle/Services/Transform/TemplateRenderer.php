@@ -43,7 +43,7 @@ class TemplateRenderer implements TemplateRendererInterface
 	 */
 	function setWorker(ChunkTransformInterface $cti) {
 		$t=$cti->getChunkType();
-		if(!is_array($t)) { $t=[$t]; }
+//		if(!is_array($t)) { $t=[$t]; }
 
 		foreach($t as $v) {
 			$this->impl[$v]=$cti->setFormat($v);
@@ -60,7 +60,7 @@ class TemplateRenderer implements TemplateRendererInterface
 	 * @assert $obj->transform($in) == 'the class'
 	 * count AVP in each
 	 */
-	public function transform(ResourceInterface $ri) {
+	public function transform(ResourceInterface $ri):ResourceInterface {
 		$out=clone $ri;
 
 		$ri->rewind();

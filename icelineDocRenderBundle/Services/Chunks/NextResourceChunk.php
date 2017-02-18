@@ -25,7 +25,7 @@ class NextResourceChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::NEXT_RESOURCE];
 	}
 
@@ -35,7 +35,7 @@ class NextResourceChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return <GetArgsChunk>
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		$data=trim($data);
 		$data=$this->unpackList($data, ResourceInterface::LIST_SPLIT);
 		return new self($name, $data, self::NEXT_RESOURCE, $filter);
@@ -46,7 +46,7 @@ class NextResourceChunk extends ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return bool
 	 */
-	function validate() {
+	function validate():bool {
  		return true;
 	}		
 

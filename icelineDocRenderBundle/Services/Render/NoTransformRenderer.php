@@ -28,7 +28,7 @@ class NoTransformRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [ChunkInterface::PLAIN, ChunkInterface::HTML, ChunkInterface::PHP5 ];
  	}
 
@@ -50,9 +50,9 @@ class NoTransformRenderer implements ChunkTransformInterface
 	 * @param ChunkInterface $ci 
 	 * @return string
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$text=$ci->getData();
-		if($this->format=='plain') {
+		if($this->format==ChunkInterface::PLAIN) {
 			$text=htmlentities($text,  ENT_NOQUOTES );
 		}
 		return $text;

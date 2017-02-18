@@ -82,7 +82,7 @@ class TabListRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [ChunkInterface::TABLIST];
  	}
 
@@ -94,7 +94,7 @@ class TabListRenderer implements ChunkTransformInterface
 	 * @assert $obj->render($in) == 'string'
 	 * and add more data input
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$data=$ci->getData();
 		
 		$text=$this->makeTabList($data);
@@ -125,7 +125,7 @@ EOJS;
 	 * @access public
 	 * @return string
 	 */
-	function makeTabList($args) {
+	function makeTabList($args):string {
 		$out		= "";
 		$data		= array();
 		$top		= "<ul class=\"tabList\">\n";
@@ -135,7 +135,10 @@ EOJS;
 				continue;
 			}
 
+			try {
 			$tmp		= $this->file->getChunk('tab-summary');
+			} catch(\Exception $e) { 
+				$tmp=null;}
 			if(is_string($tmp)) {
 				if(array_key_exists('summary-class', $v)) {
 					$tmp=str_replace('[[summary-class]]', $v['summary-class'], $tmp);

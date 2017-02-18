@@ -36,7 +36,7 @@ class WikiChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::WIKI];
 	}
 
@@ -46,7 +46,7 @@ class WikiChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return <new object>
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		
 		return (new self($name, $data, self::WIKI, $filter))->setConf($this->conf);
 	}
@@ -56,7 +56,7 @@ class WikiChunk extends ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return bool
 	 */
-	function validate() {
+	function validate():bool {
 		if( $this->conf->get( ['site_settings', 'markup_ascii_quotes'] ) ) {
 				$this->data				= preg_replace('/"\b/', '“', $this->data);
 				$this->data				= preg_replace('/\b"/', '”', $this->data);

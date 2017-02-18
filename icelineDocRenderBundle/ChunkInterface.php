@@ -9,7 +9,6 @@ namespace icelineLtd\icelineDocRenderBundle;
  * @version $id$
  * @author oab1 / Owen Beresford / owen@iceline.ltd.uk  
  * @license AGPL {@link http://www.gnu.org/licenses/agpl-3.0.html}
- // }}}
  */
 interface ChunkInterface
 {
@@ -65,7 +64,7 @@ interface ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType();
+	static function getChunkType():array;
 
 	/**
 	 * unpack ~ transform data into internal structure
@@ -73,21 +72,21 @@ interface ChunkInterface
 	 * @param string $data 
 	 * @return ChunkInterface
 	 */
-	function unpack($data, $name, $filter);
+	function unpack($data, $name, $filter):ChunkInterface;
 
 	/**
 	 * validate
 	 * 
 	 * @return bool
 	 */
-	function validate();
+	function validate():bool;
 
 	/**
 	 * getName
 	 * 
 	 * @return string of name
 	 */
-	function getName();
+	function getName():string;
 
 	/**
 	 * getData

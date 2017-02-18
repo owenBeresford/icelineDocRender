@@ -24,7 +24,7 @@ class ParseArgsChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [self::GET_ARGS, self::POST_ARGS];
 	}
 
@@ -34,7 +34,7 @@ class ParseArgsChunk extends ProgrammaticChunk implements ChunkInterface
 	 * @param string $data 
 	 * @return <GetArgsChunk>
 	 */
-	function unpack($data, $name, $filter) {
+	function unpack($data, $name, $filter):ChunkInterface {
 		$data=trim($data);
 		if($data{0}==\icelineLtd\icelineDocRenderBundle\ResourceInterface::LIST_SPLIT) {
 			$data=substr($data, 1);
@@ -49,7 +49,7 @@ class ParseArgsChunk extends ProgrammaticChunk implements ChunkInterface
 	 * 
 	 * @return bool
 	 */
-	function validate() {
+	function validate():bool {
 		if(count($this->data)==0) {
 			return false;
 		}

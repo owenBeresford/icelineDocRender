@@ -83,7 +83,7 @@ class ExecTransform implements TemplateRendererInterface
 	 * add tests for other http actions
 	 * add tests for where there is no function
 	 */
-	public function transform(ResourceInterface $in) {
+	public function transform(ResourceInterface $in):ResourceInterface {
 		$func=null;
 		if($this->type=='GET') {
 			$func=$in->getChunk(ChunkInterface::DO_GET);
@@ -107,7 +107,7 @@ class ExecTransform implements TemplateRendererInterface
 	 * NO IMPL in this class 
 	 * @param ChunkInterface $ci 
 	 * @access public
-	 * @return <self>
+	 * @return string
 	 */
 	public function render(ChunkInterface $ci) {
 		throw new NoImplException(__CLASS__.'->'.__METHOD__ );

@@ -71,7 +71,7 @@ class TableRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [ChunkInterface::TABLE];
  	}
 
@@ -83,7 +83,7 @@ class TableRenderer implements ChunkTransformInterface
 	 * @throws BadResourceException
 	 * @assert $obj->render($in) == 'string'
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$data=$ci->getData();
 		
 		$titles				= [];

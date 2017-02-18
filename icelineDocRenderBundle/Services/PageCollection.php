@@ -58,7 +58,7 @@ class PageCollection implements PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return string
 	 */
-	public function toURL($name) {
+	public function toURL($name):string {
 		return "http://".$this->conf->get(['site_settings','site_baseurl']).
 						$this->conf->get(['site_settings','resource_dir']).
 						$name;
@@ -70,7 +70,7 @@ class PageCollection implements PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return string
 	 */
-	public function toFile($name) {
+	public function toFile($name):string {
 		return realpath($this->projectRoot.$this->conf->get(['site_settings','res_dir']).'/'.$name.'.wiki');
 	}
 	
@@ -82,7 +82,7 @@ class PageCollection implements PagesCollectionInterface
 	 * @assert count($obj->get()) >0
 	 * @assert $obj->get()[0] match '.wiki'
 	 */
-	function all() {
+	function all():array {
 		return $this->pages;
 	}
 
@@ -92,7 +92,7 @@ class PageCollection implements PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return <ResourceHash>
 	 */
-	function getResource($name=null) {
+	function getResource($name=null):ResourceInterface {
 		$rh= clone $this->resrc;
 		if($name!==null) {
 			if(strpos($name, '/')===false) {
@@ -109,7 +109,7 @@ class PageCollection implements PagesCollectionInterface
 	 * @param string $name 
 	 * @return bool
 	 */
-	public function exists($name) {
+	public function exists($name):bool {
 		return array_key_exists($name, $this->pages);
 	}
 		

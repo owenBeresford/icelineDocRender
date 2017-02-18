@@ -28,7 +28,7 @@ class JSRenderer implements ChunkTransformInterface
 	 * @static
 	 * @return string
 	 */
-	static function getChunkType() {
+	static function getChunkType():array {
 		return [ChunkInterface::JS,];
  	}
 
@@ -50,7 +50,7 @@ class JSRenderer implements ChunkTransformInterface
 	 * @param ChunkInterface $ci 
 	 * @return string
 	 */
-	public function render(ChunkInterface $ci) {
+	public function render(ChunkInterface $ci):string {
 		$text=$ci->getData();
 // strip the type attrib when happy no old browsers, not needed fo HTML5		
 		return "<script type=\"text/javascript\">\n$text\n</script>";

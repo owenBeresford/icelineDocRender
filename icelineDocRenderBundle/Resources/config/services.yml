@@ -80,6 +80,7 @@ services:
             - [ setDebug, [ false ]]
             - [ setConfig, [ "@config" ]]
             - [ setTransform, [ "@execTransform" ] ] 
+            - [ setCollection, [ "@pagesCollection" ] ]
             - [ setTransform, [ "@frameTransform" ] ] 
             - [ setTransform, [ "@templateTransform" ] ] 
             - [ setTransform, [ "@filterTransform" ] ] 

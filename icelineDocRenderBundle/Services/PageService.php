@@ -5,6 +5,7 @@ namespace icelineLtd\icelineDocRenderBundle\Services;
 use icelineLtd\icelineDocRenderBundle\ResourceInterface;
 use icelineLtd\icelineDocRenderBundle\ChunkInterface;
 use icelineLtd\icelineDocRenderBundle\ConfigInterface;
+use icelineLtd\icelineDocRenderBundle\PagesCollectionInterface ;
 use icelineLtd\icelineDocRenderBundle\Exceptions\BadResourceException;
 use icelineLtd\icelineDocRenderBundle\TemplateRendererInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface  ;
@@ -27,6 +28,7 @@ class PageService implements PageServiceInterface
 	protected $whine;
 	protected $conf;
 	protected $log;	
+	protected $page;
 	protected $cache;
 	protected $caching;
 	
@@ -68,6 +70,11 @@ class PageService implements PageServiceInterface
 		$this->caching=intval($ci->get(['site_settings', 'enable_cache']));
 		return $this;
 	}
+
+	function setCollection(PagesCollectionInterface $pci) {
+		$this->page=$pci;
+		return $this;
+	}  
 
 	/**
 	 * setSession
@@ -140,11 +147,11 @@ class PageService implements PageServiceInterface
 			if(!$this->whine) {
 				return 500;
 			} else {
-				if($this->sess) {
+				if(isset($this->sess) && is_object( $this->sess)) {
 					$this->sess->set('error-messages', array_merge([$bre->getMessage()], $this->sess->get('error-messages', []) ));
 				}
 
-				$this->whine=true;
+				$this->whine=false;
 				return $this->render($this->page->toFile($this->conf->get(['site_settings', 'error_template'])));
 			}
 		}

@@ -18,7 +18,7 @@ interface PagesCollectionInterface
 	 * 
 	 * @return array of strings
 	 */
-	function all();
+	function all():array;
 
 	/**
 	 * exists ~ does this named resource exist?
@@ -26,7 +26,7 @@ interface PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return bool
 	 */
-	function exists($name);
+	function exists($name):bool;
 
 	/**
 	 * toURL ~ export an URL
@@ -34,7 +34,7 @@ interface PagesCollectionInterface
 	 * @param string $name 
 	 * @return <string>
 	 */
-	function toURL($name);
+	function toURL($name):string;
 
 	/**
 	 * toFile ~ export a file name
@@ -42,7 +42,7 @@ interface PagesCollectionInterface
 	 * @param string $name 
 	 * @return <string>
 	 */
-	function toFile($name);
+	function toFile($name):string;
 
 	/**
 	 * getResource
@@ -50,5 +50,5 @@ interface PagesCollectionInterface
 	 * @param mixed $name 
 	 * @return <ResourceHash>
 	 */
-	function getResource($name=null);
+	function getResource($name=null):ResourceInterface;
 }

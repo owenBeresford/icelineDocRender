@@ -79,11 +79,11 @@ class ResourceMaker
 		$ttt=new PHPExecService();
 		$ttt->setConfig($p);
 		$ttt->setLogger( new MockLogger());
-        $rh->setWorker((new ParseAsPHP5Chunk('test02', 'return "hello world"', 'php' ))->setPHP($ttt)->setConf($p)->setResource($rh)->setLog(new MockLogger()));
         $rh->setWorker(new PlainChunk('test03', '<h1>HEELLO, TEST W0RLD!</h1>', 'html'));
         $rh->setWorker((new WikiChunk('test04', '<h1>HEELLO, TEST W0RLD!</h1>', 'wiki'))->setConf($p));
         $rh->setWorker(new ProgrammaticChunk('test05', '<h1>HEELLO, TEST W0RLD!</h1>', 'html'));
         $rh->setWorker(new NextResourceChunk('test06', 'return "hello world"', 'nextresource' ));
+        $rh->setWorker((new ParseAsPHP5Chunk('test02', 'return "hello world"', 'php' ))->setPHP($ttt)->setConf($p)->setResource($rh)->setLog(new MockLogger()));
         $rh->setPageCollection(new MockPageCollection($p));
    		return $rh; 
 	}
@@ -94,8 +94,10 @@ class ResourceMaker
 		return $rh;
 	}
 
-	function getTable01() {
-		
+	function getTable01() {	
+		$rh=new ResourceHash(); 
+
+		return $rh;
 	}
 	
 }
