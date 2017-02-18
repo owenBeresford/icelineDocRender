@@ -23,12 +23,12 @@ Objectives
 * text_wiki installed from https://packagist.org/packages/mrcore/text_wiki 
 * Swiftemailer which is part of Symfony 
 * Unit tests require phpunit https://phpunit.de/manual/current/en/installation.html#installation.composer
-* This is written to go on top of Apache, as the project is older than NginX. However, assuming an admin ports the ''.htaccess file'', that is the only change needed for Nginx.
+* This is written to go on top of Apache, as the project is older than NginX. However, assuming an admin ports the *.htaccess file*, that is the only change needed for Nginx.
 
 # TODO:
 * update the JS to current standards (in particular, I can drop all the hacks for the 2008/2009 version of MSIE)
 * update to newer CSS (see previous)
-* add ''composer.json, bower.json'' etc.  Move standard JS libs to external deps, as this is now reliable.
+* add *composer.json, bower.json* etc.  Move standard JS libs to external deps, as this is now reliable.
 * add a better page test tool
 * decide if my planned local keyword cache is worth doing/ Or write a proper google integration
 
