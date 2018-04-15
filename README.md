@@ -2,7 +2,7 @@
 Port of my ancient doc renderer into PHP7.1 &amp;&amp; Symfony3 
 
 Objectives
-* PHP code that people may see (being BE, you can't legally see most of what I did at other companies) 
+* PHP code that people may see (for BE, you can't legally see most of what I did at other companies) 
 * Add caching layer for pages
 * Get performance benefits from using newer PHP & a better framework.  Get more features from Symfony 
 * Be able to use things like DI as its now possible 
