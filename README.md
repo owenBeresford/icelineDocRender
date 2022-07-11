@@ -26,6 +26,8 @@ Objectives
 * Swiftemailer which is part of Symfony 
 * Unit tests require phpunit https://phpunit.de/manual/current/en/installation.html#installation.composer
 * This is written to go on top of Apache, as the project is older than NginX. However, assuming an admin ports the *.htaccess file*, that is the only change needed for Nginx.
+* Requires php-dom installed first
+* Strongly recommend the use of composer; it will save you time.
 
 # TODO:
 * Update the JS to current standards (in particular, I can drop all the hacks for the 2008/2009 version of MSIE)
