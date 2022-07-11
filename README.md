@@ -28,12 +28,16 @@ Objectives
 * This is written to go on top of Apache, as the project is older than NginX. However, assuming an admin ports the *.htaccess file*, that is the only change needed for Nginx.
 
 # TODO:
-* update the JS to current standards (in particular, I can drop all the hacks for the 2008/2009 version of MSIE)
+* Update the JS to current standards (in particular, I can drop all the hacks for the 2008/2009 version of MSIE)
     * see other projects in github
-* update to newer CSS (see previous)
+* Update to newer CSS (see previous)
     * see other projects in github
-* add *composer.json, bower.json* etc.  Move standard JS libs to external deps, as this is now reliable.
-* add a better page test tool
-* decide if my planned local keyword cache is worth doing/ Or write a proper google integration
+* Add *composer.json, bower.json* etc.  Move standard JS libs to external deps, as this is now reliable.
+* Add a better page test tool
+    * I have been using the sitemap as an adhoc unit test to report for syntax error on anypage in one click.
+* Decide if my planned local keyword cache is worth doing/ Or write a proper google integration
     * update: I don't think it is. I added relevant microformats to the page template in 2013.  I was dithering on keyword cache, as a 'legacy design concept' from 2001; but search has gotten better and better at ingestion  
-
+  
+ # UPDATE: 
+* I am not proud enough to think that my "I need to show that an employers risk accessment on technology does not constrain my learning" project would be interesting to anyone else.  In 2013-2015 I did know PHP well enough to write very fast PHP; but am aware that golang or python3 are still faster (which I have since used).
+* I am adding the page cache...
