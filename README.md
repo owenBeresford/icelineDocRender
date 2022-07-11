@@ -41,5 +41,6 @@ Objectives
     * update: I don't think it is. I added relevant microformats to the page template in 2013.  I was dithering on keyword cache, as a 'legacy design concept' from 2001; but search has gotten better and better at ingestion  
   
  # UPDATE: 
-* I am not proud enough to think that my "I need to show that an employers risk accessment on technology does not constrain my learning" project would be interesting to anyone else.  In 2013-2015 I did know PHP well enough to write very fast PHP; but am aware that golang or python3 are still faster (which I have since used).
-* I am adding the page cache...
+* I am not proud enough to think that my "I need to show that an employers risk accessment on technology does not constrain my learning" project from 2009 would be interesting to anyone else (i.e. I should post it to packgist.net).  In 2008-2015 I did know PHP well enough to write very fast PHP, and use POSIX inside PHP easily; but am aware that golang or python3 are still faster (which I have since used).
+* Obviously PHP7+ is a much better interpreter, as it now has an AST.
+* I am adding the page cache now...
