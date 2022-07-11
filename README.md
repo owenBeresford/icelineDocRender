@@ -43,4 +43,4 @@ Objectives
  # UPDATE: 
 * I am not proud enough to think that my "I need to show that an employers risk accessment on technology does not constrain my learning" project from 2009 would be interesting to anyone else (i.e. I should post it to packgist.net).  In 2008-2015 I did know PHP well enough to write very fast PHP, and use POSIX inside PHP easily; but am aware that Golang or Python3 are still faster (which I have since used).
 * Obviously PHP7+ is a much better interpreter, as it now has an AST.
-* I am adding the page cache now...
+* I am adding the page cache now... pragmatic version is 5 lines of bash; and a couple of unit tests to vet all the links (either internal or external)
