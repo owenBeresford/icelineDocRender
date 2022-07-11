@@ -19,7 +19,7 @@ Objectives
 *     (a) I think text editing in a text editor or word processor is easier.  I use all the available tools in these text tools to produce better English. As such an 'Edit' GUI is a downgrade. Also single editor...
 
 
-# Dependancies
+# Dependancies:
 * Connive whoever is sysadmin that I can be trusted with php7.1+
 * Symfony3, may run on Symfony2.
 * text_wiki installed from https://packagist.org/packages/mrcore/text_wiki 
