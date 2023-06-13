@@ -1,3 +1,5 @@
+UPDATE 2022: Technically this code base never drove my site; and now I have a static site.  This project is beter code and better OO than the old version that was organically assembled.  Im now freezing it  
+
 # icelineDocRender
 Port of my ancient doc renderer into PHP7.1 &amp;&amp; Symfony3 
 
